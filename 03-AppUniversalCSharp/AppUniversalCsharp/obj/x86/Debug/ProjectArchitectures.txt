@@ -1,0 +1,1 @@
+D:\2ºDAM\Desarrollo de Interfaces\Hello Worlds\03-AppUniversalCSharp\AppUniversalCsharp\AppUniversalCsharp.csproj;x86
