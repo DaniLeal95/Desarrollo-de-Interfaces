@@ -14,7 +14,7 @@ namespace _04_Grid.Models
         public Nullable <DateTimeOffset> fechaNacimiento { get; set; }
 
         //constructores
-        public clsPersona(String nombre,String apellido,DateTime fechaNacimiento)
+        public clsPersona(String nombre,String apellido,DateTimeOffset fechaNacimiento)
         {
             this.nombre = nombre;
             this.apellido = apellido;

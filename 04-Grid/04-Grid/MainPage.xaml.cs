@@ -32,44 +32,60 @@ namespace _04_Grid
         private void BtnSubmit_Click(object sender, RoutedEventArgs e)
         {
 
-            persona=new clsPersona();
+            Boolean valido=true;
 
             //Validacion Nombre
-            if (String.IsNullOrEmpty(txtNombre.Text))
+            if (!String.IsNullOrEmpty(txtNombre.Text))
             {
-                lblErrorNombre.Text="El nombre no puede estar vacío";
+
+                lblErrorNombre.Text = "";
+             
             }
             else
             {
-                lblErrorNombre.Text = "";
-                persona.nombre = txtNombre.Text;
+                lblErrorNombre.Text = "El nombre no puede estar vacío";
+                valido = false;
+                
             }
 
             //Validacion Apellidos
-            if (String.IsNullOrEmpty(txtApellidos.Text))
-            {
-                lblErrorApellidos.Text = "El Apellido no puede estar vacío";
-            }
-            else
+            if (!String.IsNullOrEmpty(txtApellidos.Text))
             {
                 lblErrorApellidos.Text = "";
-                persona.apellido = txtApellidos.Text;
-            }
-            //Validacion de la fecha
-            if (Fecha.Date == null)
-            {
-                lblErrorFecha.Text = "La fecha no puede estar Vacía";
-            }
-            else if(Fecha.Date > DateTime.Now)
-            {
-                lblErrorFecha.Text = "La fecha debe ser anterior a la actual.";
+                
             }
             else
             {
-                lblErrorFecha.Text = "";
-                persona.fechaNacimiento = Fecha.Date;
-
+                lblErrorApellidos.Text = "El Apellido no puede estar vacío";
+                valido = false;
             }
+            //Validacion de la fecha
+            if (!(Fecha.Date == null))
+            {
+                
+
+                if (Fecha.Date < DateTime.Now)
+                {
+                    lblErrorFecha.Text = "";
+                    
+                }
+                else
+                {
+                    lblErrorFecha.Text = "La fecha debe ser anterior a la actual.";
+                    valido = false;
+                }
+            }
+            else{
+                lblErrorFecha.Text = "La fecha no puede estar Vacía";
+                valido = false;
+            }
+
+
+            if (valido)
+            {
+                persona = new clsPersona(txtNombre.Text, txtApellidos.Text, Fecha.Date);
+            }
+            
 
             lblPersona.Text = persona.ToString();
             
