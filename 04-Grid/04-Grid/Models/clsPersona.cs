@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using _04_Grid.Models;
+
 
 namespace _04_Grid.Models
 {
+
     class clsPersona
     {
         //propiedades y Getters/Setters
@@ -14,11 +17,14 @@ namespace _04_Grid.Models
         public Nullable <DateTimeOffset> fechaNacimiento { get; set; }
 
         //constructores
-        public clsPersona(String nombre,String apellido,DateTimeOffset fechaNacimiento)
+        public clsPersona(String nombre, String apellido, DateTimeOffset fechaNacimiento)
         {
+            
+            
             this.nombre = nombre;
             this.apellido = apellido;
             this.fechaNacimiento = fechaNacimiento;
+           
         }
 
         public clsPersona()

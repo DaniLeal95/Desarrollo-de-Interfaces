@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using _04_Grid.Models;
 
 // La plantilla de elemento Página en blanco está documentada en http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -31,65 +32,50 @@ namespace _04_Grid
 
         private void BtnSubmit_Click(object sender, RoutedEventArgs e)
         {
+            string[] errores;
+            clsUtilidades u = new clsUtilidades();
 
-            Boolean valido=true;
+            errores = u.personaValida(txtNombre.Text, txtApellidos.Text, Fecha.Date);
 
-            //Validacion Nombre
-            if (!String.IsNullOrEmpty(txtNombre.Text))
+            for (int i = 0; i < errores.Length; i++)
             {
+                if (errores[i] != "")
+                    switch (i)
+                    {
+                        case 0:
+                            lblErrorNombre.Text = errores[i];
+                            break;
+                        case 1:
+                            lblErrorApellidos.Text = errores[i];
+                            break;
+                        case 2:
+                            lblErrorFecha.Text = errores[i];
+                            break;
+                    }
 
-                lblErrorNombre.Text = "";
-             
-            }
-            else
-            {
-                lblErrorNombre.Text = "El nombre no puede estar vacío";
-                valido = false;
-                
-            }
-
-            //Validacion Apellidos
-            if (!String.IsNullOrEmpty(txtApellidos.Text))
-            {
-                lblErrorApellidos.Text = "";
-                
-            }
-            else
-            {
-                lblErrorApellidos.Text = "El Apellido no puede estar vacío";
-                valido = false;
-            }
-            //Validacion de la fecha
-            if (!(Fecha.Date == null))
-            {
-                
-
-                if (Fecha.Date < DateTime.Now)
-                {
-                    lblErrorFecha.Text = "";
-                    
-                }
                 else
                 {
-                    lblErrorFecha.Text = "La fecha debe ser anterior a la actual.";
-                    valido = false;
+                    switch (i)
+                    {
+                        case 0:
+                            lblErrorNombre.Text = "";
+                            break;
+                        case 1:
+                            lblErrorApellidos.Text = "";
+                            break;
+                        case 2:
+                            lblErrorFecha.Text = "";
+                            break;
+                    }
                 }
             }
-            else{
-                lblErrorFecha.Text = "La fecha no puede estar Vacía";
-                valido = false;
-            }
-
-
-            if (valido)
-            {
-                persona = new clsPersona(txtNombre.Text, txtApellidos.Text, Fecha.Date);
-            }
-            
-
-            lblPersona.Text = persona.ToString();
-            
-
         }
+
+
+
+
+
+
+
     }
 }
