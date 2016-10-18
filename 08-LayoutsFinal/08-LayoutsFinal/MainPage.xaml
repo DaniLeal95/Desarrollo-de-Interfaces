@@ -1,0 +1,39 @@
+﻿<Page
+    x:Class="_08_LayoutsFinal.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:_08_LayoutsFinal"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="AUTO"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+       
+        <StackPanel Grid.Row="0" BorderBrush="Black" Margin="10" >
+            <VariableSizedWrapGrid>
+                <TextBlock> nfaisofjiaoisnfaonfnaso</TextBlock>
+            </VariableSizedWrapGrid>
+        </StackPanel>
+        <StackPanel Grid.Row="1" BorderBrush="Black" Margin="10">
+            <VariableSizedWrapGrid>
+                <TextBlock> joaifjoaisjgfiansoginaiognoianogidnsgnaiosnhadlisnhoiadnshpinasdphnsapohn</TextBlock>
+            </VariableSizedWrapGrid>
+        </StackPanel>
+
+        <RelativePanel Grid.Row="2" BorderBrush="Black" Margin="10">
+
+            <Rectangle x:Name="rectangulo1"  Fill="Orange" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignLeftWithPanel="true" Margin="10" Height="150" Width="150"/>
+            <Rectangle x:Name="rectangulo2"  Fill="Blue"  RelativePanel.RightOf="rectangulo1" Margin="10" Height="150" Width="150"/>
+            <Rectangle x:Name="rectangulo3"  Fill="Green"  RelativePanel.Below="rectangulo1" Margin="10" Height="150" Width="150"/>
+            
+
+        </RelativePanel>
+
+    </Grid>
+</Page>
