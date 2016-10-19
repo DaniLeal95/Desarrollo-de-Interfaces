@@ -17,22 +17,28 @@
        
         <StackPanel Grid.Row="0" BorderBrush="Black" Margin="10" >
             <VariableSizedWrapGrid>
-                <TextBlock> nfaisofjiaoisnfaonfnaso</TextBlock>
+                <TextBlock TextWrapping="Wrap"> nfaisofjiaoisnfaonfnaso</TextBlock>
             </VariableSizedWrapGrid>
         </StackPanel>
         <StackPanel Grid.Row="1" BorderBrush="Black" Margin="10">
             <VariableSizedWrapGrid>
-                <TextBlock> joaifjoaisjgfiansoginaiognoianogidnsgnaiosnhadlisnhoiadnshpinasdphnsapohn</TextBlock>
+                <TextBlock TextWrapping="Wrap"> joaifjoaisjgfiansoginaiognoianogidnsgnaiosnhadlisnhoiadnshpinasdphnsapohn</TextBlock>
             </VariableSizedWrapGrid>
         </StackPanel>
-
+        
         <RelativePanel Grid.Row="2" BorderBrush="Black" Margin="10">
+            <RelativePanel x:Name="Cuadrados"  Background="Red" Margin="10">
 
-            <Rectangle x:Name="rectangulo1"  Fill="Orange" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignLeftWithPanel="true" Margin="10" Height="150" Width="150"/>
-            <Rectangle x:Name="rectangulo2"  Fill="Blue"  RelativePanel.RightOf="rectangulo1" Margin="10" Height="150" Width="150"/>
-            <Rectangle x:Name="rectangulo3"  Fill="Green"  RelativePanel.Below="rectangulo1" Margin="10" Height="150" Width="150"/>
-            
-
+                <Rectangle x:Name="rectangulo1"  Fill="Orange" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignLeftWithPanel="true" Margin="10" Height="200" Width="200"/>
+                <Rectangle x:Name="rectangulo2"  Fill="Blue"  RelativePanel.RightOf="rectangulo1" Margin="10" Height="200" Width="200"/>
+                <Rectangle x:Name="rectangulo3"  Fill="Green"  RelativePanel.Below="rectangulo1" Margin="10" Height="200" Width="200"/>
+                
+            </RelativePanel>
+            <RelativePanel RelativePanel.AlignTopWithPanel="True" RelativePanel.RightOf="Cuadrados" Margin="10">
+                <TextBlock x:Name="Texto1" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignRightWithPanel="true"  TextWrapping="Wrap" Text="joaifjoaisjgfiansoginaiognoianogidnsgnaiosnhadlisnhoiadnshpinasdphnsapohn"/>
+                <TextBlock x:Name="Texto2" RelativePanel.Below="Texto1"  RelativePanel.AlignRightWithPanel="true" TextWrapping="Wrap" Text="joaifjoaisjgfiansoginaiognoianogidnsgnaiosnhadlisnhoiadnsjoaifjoaisjgfiansoginaiognoianogidnsgnaiosnhadlisnhoiadnshpinasdphnsapohnhpinasdpjoaifjoaisjgfiansoginaiognoianogidnsgnaiosnhadlisnhoiadnsjoaifjoaisjgfiansoginaiognoianogidnsgnaiosnhadlisnhoiadnshpinasdphnsapohnhpinasdphnsapohnhnsapohn"/>
+            <TextBlock x:Name="Texto3" RelativePanel.Below="Texto2" RelativePanel.AlignRightWithPanel="true"   TextWrapping="Wrap" Text="joaifjoaisjgfiansoginaiognoianogidnsgnaiosnhadlisnhoiadnshpinasdphnsapohn"/>
+            </RelativePanel>
         </RelativePanel>
 
     </Grid>
