@@ -49,5 +49,10 @@ namespace _11_Controls
             }
 
         }
+        
+        private void Inicio_SelectedDatesChanged(CalendarView sender, CalendarViewSelectedDatesChangedEventArgs args)
+        {
+            Fin.MinDate=sender.SelectedDates.ElementAt(0).AddDays(1);
+        }
     }
 }
