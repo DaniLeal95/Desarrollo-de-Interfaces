@@ -51,6 +51,11 @@
         <StackPanel Grid.Column="0" Grid.Row="0">
             <TextBox x:Name="textBox" Grid.Column="3" Language="es-Es" HorizontalAlignment="Left" TextWrapping="Wrap" AcceptsReturn="True"/>
         </StackPanel>
+        <StackPanel Grid.Column="0" Grid.Row="1">
+            <CalendarView Name="Inicio" 
+                      SelectedDatesChanged="Inicio_SelectedDatesChanged"/>
+        <CalendarView Name="Fin"/>
+        </StackPanel>
         
     </Grid>
 </Page>
