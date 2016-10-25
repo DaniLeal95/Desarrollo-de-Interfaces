@@ -22,9 +22,16 @@ namespace _11_Controls
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        
         public MainPage()
         {
             this.InitializeComponent();
+
+            CalendarView calendario = Inicio;
+            CalendarView calendario2 = Fin;
+            calendario.MinDate = new DateTimeOffset(DateTime.Now);
+            
+
         }
 
         private void go_Click(object sender, RoutedEventArgs e)
@@ -50,9 +57,19 @@ namespace _11_Controls
 
         }
         
-        private void Inicio_SelectedDatesChanged(CalendarView sender, CalendarViewSelectedDatesChangedEventArgs args)
+        private void SeleccionarFechaInicio(CalendarView sender, CalendarViewSelectedDatesChangedEventArgs args)
         {
+            
             Fin.MinDate=sender.SelectedDates.ElementAt(0).AddDays(1);
+            
+            
+        }
+
+        private void SeleccionarFechaFin(CalendarView sender, CalendarViewSelectedDatesChangedEventArgs args)
+        {
+            
+            int dias = (Fin.SelectedDates.ElementAt(0) - Inicio.SelectedDates.ElementAt(0)).Days;
+            diferenciaFechas.Text = "Va a reservar "+dias.ToString()+" días";
         }
     }
 }

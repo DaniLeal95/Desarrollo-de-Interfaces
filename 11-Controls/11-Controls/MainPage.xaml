@@ -51,11 +51,16 @@
         <StackPanel Grid.Column="0" Grid.Row="0">
             <TextBox x:Name="textBox" Grid.Column="3" Language="es-Es" HorizontalAlignment="Left" TextWrapping="Wrap" AcceptsReturn="True"/>
         </StackPanel>
-        <StackPanel Grid.Column="0" Grid.Row="1">
-            <CalendarView Name="Inicio" 
-                      SelectedDatesChanged="Inicio_SelectedDatesChanged"/>
-        <CalendarView Name="Fin"/>
+       
+        <CalendarView Name="Inicio" Grid.Column="0" Grid.Row="1" SelectedDatesChanged="SeleccionarFechaInicio"  />
+        <CalendarView Name="Fin" Grid.Column="0" Grid.Row="2" SelectedDatesChanged="SeleccionarFechaFin"/>
+        <TextBlock Name="diferenciaFechas" Grid.Column="0" Grid.Row="3" Text="" />
+        <StackPanel Grid.Column="1" Grid.Row="0">
+            <Slider x:Name="slider" Margin="15"  Maximum="100" Minimum="0" SnapsTo="StepValues" TickPlacement="BottomRight" TickFrequency="10" />
+
+            <ProgressBar Minimum="0" Maximum="100" Value="{Binding ElementName=slider,Path=Value}" Margin="15"/>
+            <ProgressRing IsActive="True"/>
         </StackPanel>
-        
+
     </Grid>
 </Page>
