@@ -1,0 +1,70 @@
+﻿<Page
+    x:Class="Binding2.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Binding2"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:Binding2.ViewModels"
+    mc:Ignorable="d">
+    
+    <Page.DataContext>
+        <vm:clsMainPage />
+    </Page.DataContext>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+
+        <ScrollViewer  Grid.Column="0">
+            <ListView x:Name="lista" ItemsSource="{Binding lista}" SelectedItem="{Binding personaSeleccionada, Mode=TwoWay}" >
+                
+                <!--TEMPLATE OF LIST-->
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding nombre}"></TextBlock>
+                            <TextBlock Text="{Binding apellido}" Margin="5,0,0,0"></TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+        </ScrollViewer>
+
+        <Grid Grid.Column="1" DataContext="{Binding personaSeleccionada}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+               <!--Primera Columna-->
+            <TextBlock Grid.Column="0" Grid.Row="0" Text="Nombre:" FontSize="20" Margin="15"/>
+            <TextBlock Grid.Column="0" Grid.Row="1" Text="Apellidos:" FontSize="20" Margin="15"/>
+            <TextBlock Grid.Column="0" Grid.Row="2" Text="Fecha de Nacimiento:" FontSize="20" Margin="15" TextWrapping="Wrap"/>
+            <TextBlock Grid.Column="0" Grid.Row="3" Text="Teléfono:" FontSize="20" Margin="15"/>
+            <TextBlock Grid.Column="0" Grid.Row="4" Text="Dirección:" FontSize="20" Margin="15"/>
+            
+            <!--Segunda Columna-->
+            <TextBox Grid.Column="1" Grid.Row="0" x:Name="txtNombre" Text="{Binding Path=nombre, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="15"> </TextBox>
+            <TextBox Grid.Column="1" Grid.Row="1" x:Name="txtApellidos" Margin="15" Text="{Binding Path=apellido, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"> </TextBox>
+            <TextBox Grid.Column="1" Grid.Row="2" x:Name="txtFechaNacimiento" Margin="15" Text="{Binding Path=fNac, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <TextBox Grid.Column="1" Grid.Row="3" x:Name="txtTelefono" Margin="15" Text="{Binding Path=telefono, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
+            <ScrollViewer Grid.Column="1" Grid.Row="5" Grid.RowSpan="3" Margin="15" >
+                <TextBox  x:Name="txtDescripcion" Margin="5" TextWrapping="Wrap" Text="{Binding Path=detalles, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
+            </ScrollViewer>
+
+        </Grid>
+    </Grid>
+</Page>
