@@ -11,14 +11,61 @@
     <Page.DataContext>
         <vm:clsMainPage />
     </Page.DataContext>
+    
+    <!-- ADAPTATIVE TRIGGER-->
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <VisualStateManager.VisualStateGroups>
+
+        <!-- ADAPTATIVE TRIGGER Pantalla Grande-->
+        <VisualStateGroup x:Name="VisualStateGroup">
+            <VisualState x:Name="pantallaGrande">
+                <VisualState.StateTriggers>
+                    <AdaptiveTrigger MinWindowWidth="700" />
+                </VisualState.StateTriggers>
+                <VisualState.Setters>
+                
+                    <Setter Target="Detail.(Grid.Row)"
+                            Value="1" />
+                    <Setter Target="list.(Grid.Row)"
+                            Value="0"/>
+
+                </VisualState.Setters>
+            </VisualState>
+        </VisualStateGroup>
+        <!-- ADAPTATIVE TRIGGER pantalla pequeña-->
+        <VisualStateGroup x:Name="VisualStateGroup2">
+            <VisualState x:Name="pantallaPequenia">
+                <VisualState.StateTriggers>
+                    <AdaptiveTrigger MinWindowWidth="0" />
+                </VisualState.StateTriggers>
+                <VisualState.Setters>
+
+                    <Setter Target="Detail.(Grid.Row)"
+                            Value="0" />
+                    <Setter Target="list.(Grid.Row)"
+                            Value="0"/>
+
+                </VisualState.Setters>
+            </VisualState>
+        </VisualStateGroup>
+        
+
+
+    </VisualStateManager.VisualStateGroups>
+
+    <!-- FIN ADAPTATIVE TRIGGER-->
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Name="Total">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
-        <ScrollViewer  Grid.Column="0">
+        <ScrollViewer  Grid.Column="0" Grid.Row="0" Name="list">
             <ListView x:Name="lista" ItemsSource="{Binding lista}" SelectedItem="{Binding personaSeleccionada, Mode=TwoWay}" >
                 
                 <!--TEMPLATE OF LIST-->
@@ -34,7 +81,7 @@
 
         </ScrollViewer>
 
-        <Grid Grid.Column="1" DataContext="{Binding personaSeleccionada}">
+        <Grid Grid.Column="1" DataContext="{Binding personaSeleccionada}" Name="Details" Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="2*"/>
