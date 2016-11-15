@@ -12,57 +12,72 @@
         <vm:clsMainPage />
     </Page.DataContext>
     
-    <!-- ADAPTATIVE TRIGGER-->
 
-    <VisualStateManager.VisualStateGroups>
-
-        <!-- ADAPTATIVE TRIGGER Pantalla Grande-->
-        <VisualStateGroup x:Name="VisualStateGroup">
-            <VisualState x:Name="pantallaGrande">
-                <VisualState.StateTriggers>
-                    <AdaptiveTrigger MinWindowWidth="700" />
-                </VisualState.StateTriggers>
-                <VisualState.Setters>
-                
-                    <Setter Target="Detail.(Grid.Row)"
-                            Value="1" />
-                    <Setter Target="list.(Grid.Row)"
-                            Value="0"/>
-
-                </VisualState.Setters>
-            </VisualState>
-        </VisualStateGroup>
-        <!-- ADAPTATIVE TRIGGER pantalla pequeña-->
-        <VisualStateGroup x:Name="VisualStateGroup2">
-            <VisualState x:Name="pantallaPequenia">
-                <VisualState.StateTriggers>
-                    <AdaptiveTrigger MinWindowWidth="0" />
-                </VisualState.StateTriggers>
-                <VisualState.Setters>
-
-                    <Setter Target="Detail.(Grid.Row)"
-                            Value="0" />
-                    <Setter Target="list.(Grid.Row)"
-                            Value="0"/>
-
-                </VisualState.Setters>
-            </VisualState>
-        </VisualStateGroup>
-        
-
-
-    </VisualStateManager.VisualStateGroups>
-
-    <!-- FIN ADAPTATIVE TRIGGER-->
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Name="Total">
+        <!-- ADAPTATIVE TRIGGER-->
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="VisualStateGroup">
+
+                <!-- ADAPTATIVE TRIGGER Pantalla Grande-->
+                <VisualState x:Name="pantallaGrande">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="550" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <!--<Setter Target="Detail.(Grid.Row)"
+                            Value="1" />
+                        <Setter Target="Detail.(Grid.Column)"
+                            Value="0" />
+                        <Setter Target="list.(Grid.Row)"
+                            Value="0"/>
+                        <Setter Target="list.(Grid.Column)"
+                            Value="0"/>
+                        <Setter Target="Columna1.Height" Value="AUTO"></Setter>
+                        <Setter Target="Fila1.Width" Value="*"></Setter>-->
+                    </VisualState.Setters>
+                </VisualState>
+
+                <!-- ADAPTATIVE TRIGGER pantalla pequeña-->
+
+                <VisualState x:Name="pantallaPequenia">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+
+                        <Setter Target="Details.(Grid.Row)"
+                            Value="1" />
+                        <Setter Target="Details.(Grid.Column)"
+                            Value="0" />
+                        <Setter Target="list.(Grid.Row)"
+                            Value="0"/>
+                        <Setter Target="list.(Grid.Column)"
+                            Value="0"/>
+
+                        <Setter Target="Columna1.Width" Value="AUTO"></Setter>
+                        <Setter Target="Fila1.Height" Value="*"></Setter>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+
+
+
+        </VisualStateManager.VisualStateGroups>
+
+        <!-- FIN ADAPTATIVE TRIGGER-->
+
+
+
+
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition x:Name="Columna0" Width="*"/>
+            <ColumnDefinition x:Name="Columna1" Width="3*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition x:Name="Fila0" Height="*"/>
+            <RowDefinition x:Name="Fila1" Height="Auto"/>
         </Grid.RowDefinitions>
 
         <ScrollViewer  Grid.Column="0" Grid.Row="0" Name="list">
@@ -113,5 +128,11 @@
             </ScrollViewer>
 
         </Grid>
+
+
+
     </Grid>
+    
+    
+    
 </Page>
