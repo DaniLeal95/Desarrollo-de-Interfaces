@@ -19,17 +19,7 @@ namespace _Binding2.Models
             list.Add(new clsPersona("Pepe", "Leal", new DateTime(1995, 10, 10), "677356902", "crack"));
             list.Add(new clsPersona("Rosi", "Leal", new DateTime(1995, 10, 10), "677356902", "crack"));
             list.Add(new clsPersona("JEJE", "Saludos", new DateTime(1995, 10, 10), "677356902", "crack"));
-            list.Add(new clsPersona("JEJE", "Saludos", new DateTime(1995, 10, 10), "677356902", "crack"));
-            list.Add(new clsPersona("JEJE", "Saludos", new DateTime(1995, 10, 10), "677356902", "crack"));
-            list.Add(new clsPersona("JEJE", "Saludos", new DateTime(1995, 10, 10), "677356902", "crack"));
-            list.Add(new clsPersona("JEJE", "Saludos", new DateTime(1995, 10, 10), "677356902", "crack"));
-            list.Add(new clsPersona("JEJE", "Saludos", new DateTime(1995, 10, 10), "677356902", "crack"));
-            list.Add(new clsPersona("JEJE", "Saludos", new DateTime(1995, 10, 10), "677356902", "crack"));
-            list.Add(new clsPersona("JEJE", "Saludos", new DateTime(1995, 10, 10), "677356902", "crack"));
-            list.Add(new clsPersona("JEJE", "Saludos", new DateTime(1995, 10, 10), "677356902", "crack"));
-            list.Add(new clsPersona("JEJE", "Saludos", new DateTime(1995, 10, 10), "677356902", "crack"));
-            list.Add(new clsPersona("JEJE", "Saludos", new DateTime(1995, 10, 10), "677356902", "crack"));
-            list.Add(new clsPersona("JEJE", "Saludos", new DateTime(1995, 10, 10), "677356902", "crack"));
+
 
         }
 

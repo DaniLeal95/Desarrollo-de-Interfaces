@@ -6,16 +6,17 @@ using System.Threading.Tasks;
 using _Binding2.Models;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using Windows.UI.Xaml;
 
 namespace Binding2.ViewModels
 {
-    public class clsMainPage:INotifyPropertyChanged
+    public class clsMainPageVM:INotifyPropertyChanged
     {
         private clsPersona _personaSeleccionada;
         public ObservableCollection<clsPersona> lista { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public clsMainPage()
+        public clsMainPageVM()
         {
            lista = new clsListado().list;
         }
@@ -46,6 +47,10 @@ namespace Binding2.ViewModels
             }
         }
 
+        public void btnborrar_Click(Object sender, RoutedEventArgs e)
+        {
+            lista.Remove(_personaSeleccionada);
+        }
 
     }
 }

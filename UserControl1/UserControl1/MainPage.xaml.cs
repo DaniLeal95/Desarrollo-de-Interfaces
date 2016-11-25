@@ -51,12 +51,13 @@ namespace UserControl1
             RowDefinitionCollection coleccion = gridPrincipal.RowDefinitions;
             coleccion.Add(row);
 
+            grid.Children.Add(newAlumno);
 
 
-            Button boton = new Button();
-            boton.Visibility = Visibility;
-            boton.Content = "BOTOOOOOOOOOOOOOOOOOOOOOOOOOOOOON";
-            boton.IsEnabled = true;
+            
+            //grid.Children.Add(boton);
+            
+
             //Image imagen = new Image();
 
 

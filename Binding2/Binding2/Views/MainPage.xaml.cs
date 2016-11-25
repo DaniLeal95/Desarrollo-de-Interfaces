@@ -27,10 +27,12 @@ namespace Binding2
         public MainPage()
         {
             this.InitializeComponent();
-            clsListado personas = new clsListado();
-
-            
-            
+            this.ViewModel = (ViewModels.clsMainPageVM) this.DataContext;
+           
         }
+
+        public ViewModels.clsMainPageVM ViewModel { get; }
+        
+
     }
 }

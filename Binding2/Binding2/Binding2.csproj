@@ -97,7 +97,7 @@
     </Compile>
     <Compile Include="Models\clsListado.cs" />
     <Compile Include="Models\clsPersona.cs" />
-    <Compile Include="ViewModels\clsMainPage.cs" />
+    <Compile Include="ViewModels\clsMainPageVM.cs" />
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

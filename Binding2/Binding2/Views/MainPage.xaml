@@ -9,7 +9,7 @@
     mc:Ignorable="d">
     
     <Page.DataContext>
-        <vm:clsMainPage />
+        <vm:clsMainPageVM />
     </Page.DataContext>
     
 
@@ -80,21 +80,29 @@
             <RowDefinition x:Name="Fila1" Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <ScrollViewer  Grid.Column="0" Grid.Row="0" Name="list">
-            <ListView x:Name="lista" ItemsSource="{Binding lista}" SelectedItem="{Binding personaSeleccionada, Mode=TwoWay}" >
-                
-                <!--TEMPLATE OF LIST-->
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding nombre}"></TextBlock>
-                            <TextBlock Text="{Binding apellido}" Margin="5,0,0,0"></TextBlock>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+        <Grid  Grid.Column="0" Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="AUTO"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
 
-        </ScrollViewer>
+            <AppBarButton Grid.Row="0" Icon="Delete" Click="{x:Bind ViewModel.btnborrar_Click}"></AppBarButton>
+            <ScrollViewer  Name="list" Grid.Row="1">
+                <ListView x:Name="lista" ItemsSource="{Binding lista}" SelectedItem="{Binding personaSeleccionada, Mode=TwoWay}" >
+                
+                    <!--TEMPLATE OF LIST-->
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding nombre}"></TextBlock>
+                                <TextBlock Text="{Binding apellido}" Margin="5,0,0,0"></TextBlock>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+            </ScrollViewer>
+        </Grid>
 
         <Grid Grid.Column="1" DataContext="{Binding personaSeleccionada}" Name="Details" Grid.Row="0">
             <Grid.ColumnDefinitions>
