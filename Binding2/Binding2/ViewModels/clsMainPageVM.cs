@@ -7,6 +7,7 @@ using _Binding2.Models;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Windows.UI.Xaml;
+using _13_DataContext.ViewModels;
 
 namespace Binding2.ViewModels
 {
@@ -15,12 +16,15 @@ namespace Binding2.ViewModels
         private clsPersona _personaSeleccionada;
         public ObservableCollection<clsPersona> lista { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
+        private DelegateCommand _eliminarCommand;
+        private String textoaBuscar;
 
         public clsMainPageVM()
         {
            lista = new clsListado().list;
         }
 
+        #region getters&setters
         public clsPersona  personaSeleccionada
         {
             get
@@ -35,6 +39,19 @@ namespace Binding2.ViewModels
 
             }
         }
+
+        public DelegateCommand EliminarCommand
+        {
+            get
+            {
+                _eliminarCommand = new DelegateCommand(EliminarCommand_Executed, EliminarCommand_CanExecuted);
+                return _eliminarCommand;
+            }
+
+        
+        }
+        #endregion
+        #region funciones
 
         // Create the OnPropertyChanged method to raise the event
         protected void OnPropertyChanged(string name)
@@ -52,5 +69,16 @@ namespace Binding2.ViewModels
             lista.Remove(_personaSeleccionada);
         }
 
+        private bool EliminarCommand_CanExecuted()
+        {
+            bool sePuedeBorrar = true;
+            return sePuedeBorrar;
+        }
+
+        private void EliminarCommand_Executed()
+        {
+            lista.Remove(_personaSeleccionada);
+        }
+        #endregion
     }
 }

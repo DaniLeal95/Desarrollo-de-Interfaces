@@ -85,8 +85,25 @@
                 <RowDefinition Height="AUTO"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal">
 
-            <AppBarButton Grid.Row="0" Icon="Delete" Click="{x:Bind ViewModel.btnborrar_Click}"></AppBarButton>
+                <AppBarButton Grid.Row="0" Icon="Delete" Click="{x:Bind ViewModel.btnborrar_Click}"></AppBarButton>
+                <AppBarButton Grid.Row="0" Icon="Delete"  Command="{Binding EliminarCommand}"></AppBarButton>
+                <ListView>
+                    <ListViewItem>
+                        <StackPanel Orientation="Vertical">
+                            <AppBarButton Grid.Row="0" Icon="Delete"  Command="{Binding EliminarCommand}"></AppBarButton>
+                            <TextBlock HorizontalAlignment="Center">Borrar</TextBlock>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListBoxItem>
+                        <TextBlock Text="Courier New" FontFamily="Courier New" />
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <TextBlock Text="Times New Roman" FontFamily="Times New Roman"/>
+                    </ListBoxItem>
+                </ListView>
+            </StackPanel>
             <ScrollViewer  Name="list" Grid.Row="1">
                 <ListView x:Name="lista" ItemsSource="{Binding lista}" SelectedItem="{Binding personaSeleccionada, Mode=TwoWay}" >
                 
