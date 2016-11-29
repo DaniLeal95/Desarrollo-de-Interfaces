@@ -87,25 +87,24 @@
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal">
 
-                <AppBarButton Grid.Row="0" Icon="Delete" Click="{x:Bind ViewModel.btnborrar_Click}"></AppBarButton>
-                <AppBarButton Grid.Row="0" Icon="Delete"  Command="{Binding EliminarCommand}"></AppBarButton>
-                <ListView>
-                    <ListViewItem>
-                        <StackPanel Orientation="Vertical">
-                            <AppBarButton Grid.Row="0" Icon="Delete"  Command="{Binding EliminarCommand}"></AppBarButton>
-                            <TextBlock HorizontalAlignment="Center">Borrar</TextBlock>
-                        </StackPanel>
-                    </ListViewItem>
-                    <ListBoxItem>
-                        <TextBlock Text="Courier New" FontFamily="Courier New" />
-                    </ListBoxItem>
-                    <ListBoxItem>
-                        <TextBlock Text="Times New Roman" FontFamily="Times New Roman"/>
-                    </ListBoxItem>
-                </ListView>
+
+                <StackPanel Grid.Row="0" Background="LightBlue">
+                    <AppBarButton  Icon="Delete" Click="{x:Bind ViewModel.btnborrar_Click}" Label="Bind" ></AppBarButton>
+                    
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical" Grid.Row="0" Background="LightBlue">
+                    <AppBarButton Name="borrarCommand"  Icon="Delete"  Command="{Binding EliminarCommand}" Label="Command"></AppBarButton>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Name="personaABuscar" Text="{Binding textoAbuscar,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                    <AppBarButton  Icon="Find"  Command="{Binding buscarCommand}" Label="Command"></AppBarButton>
+                </StackPanel>
+
+
             </StackPanel>
             <ScrollViewer  Name="list" Grid.Row="1">
-                <ListView x:Name="lista" ItemsSource="{Binding lista}" SelectedItem="{Binding personaSeleccionada, Mode=TwoWay}" >
+                <ListView x:Name="lista" ItemsSource="{Binding lista}" SelectedItem="{Binding personaSeleccionada, Mode=TwoWay}" RightTapped="lista_RightTapped" >
                 
                     <!--TEMPLATE OF LIST-->
                     <ListView.ItemTemplate>

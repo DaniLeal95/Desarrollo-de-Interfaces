@@ -32,7 +32,15 @@ namespace Binding2
         }
 
         public ViewModels.clsMainPageVM ViewModel { get; }
-        
 
+        private void lista_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            ListView listView = (ListView)sender;
+            //listView.SelectedIndex = e.GetPosition;
+            
+
+           // allContactsMenuFlyout.ShowAt(listView,e.getPostion(listView));
+        }
     }
+   
 }

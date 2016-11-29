@@ -14,14 +14,16 @@ namespace Binding2.ViewModels
     public class clsMainPageVM:INotifyPropertyChanged
     {
         private clsPersona _personaSeleccionada;
-        public ObservableCollection<clsPersona> lista { get; set; }
+        private ObservableCollection<clsPersona> _lista;
         public event PropertyChangedEventHandler PropertyChanged;
         private DelegateCommand _eliminarCommand;
+        private DelegateCommand _buscarCommand;
         private String textoaBuscar;
 
         public clsMainPageVM()
         {
            lista = new clsListado().list;
+            _eliminarCommand = new DelegateCommand(EliminarCommand_Executed, EliminarCommand_CanExecuted);
         }
 
         #region getters&setters
@@ -35,6 +37,7 @@ namespace Binding2.ViewModels
             set
             {
                 _personaSeleccionada = value;
+                _eliminarCommand.RaiseCanExecuteChanged();
                 OnPropertyChanged("personaSeleccionada");
 
             }
@@ -44,11 +47,34 @@ namespace Binding2.ViewModels
         {
             get
             {
-                _eliminarCommand = new DelegateCommand(EliminarCommand_Executed, EliminarCommand_CanExecuted);
+                
                 return _eliminarCommand;
             }
 
         
+        }
+
+        public DelegateCommand buscarCommand
+        {
+            get
+            {
+                _buscarCommand = new DelegateCommand(buscarCommand_Executed);
+                return _buscarCommand;
+            }
+        }
+
+        public ObservableCollection<clsPersona> lista
+        {
+            get
+            {
+                return this._lista;
+            }
+            set
+            {
+                this._lista = value;
+                OnPropertyChanged("_lista");
+                
+            }
         }
         #endregion
         #region funciones
@@ -71,13 +97,37 @@ namespace Binding2.ViewModels
 
         private bool EliminarCommand_CanExecuted()
         {
-            bool sePuedeBorrar = true;
+            bool sePuedeBorrar = false;
+
+            if (_personaSeleccionada != null){ sePuedeBorrar = true; }
             return sePuedeBorrar;
         }
+
+      /*  private bool BuscarCommand_CanExecuted()
+        {
+
+        }*/
 
         private void EliminarCommand_Executed()
         {
             lista.Remove(_personaSeleccionada);
+            personaSeleccionada = null;
+        }
+
+
+        public void buscarCommand_Executed()
+        {
+            if (!String.IsNullOrEmpty(textoaBuscar))
+            {
+                var listarFiltrada = from p in _lista where p.nombre.StartsWith(textoaBuscar) select p;
+                lista = new ObservableCollection<clsPersona>(listarFiltrada);
+            }
+            else
+            {
+                lista = new ObservableCollection<clsPersona>(lista);
+            }
+            
+           INotifyPropertyChanged("lista");
         }
         #endregion
     }

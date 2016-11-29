@@ -67,7 +67,7 @@ namespace _13_DataContext.ViewModels
         
         public bool CanExecute(object parameter)
         {
-            return _canExecute != null ? true : _canExecute();
+            return _canExecute == null ? true : _canExecute();
         }
 
         /// <summary>
