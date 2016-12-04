@@ -7,3 +7,6 @@ D:\2ºDAM\Desarrollo de Interfaces\Hello Worlds\01-HelloWorldWindowsForms\01-Hel
 D:\2ºDAM\Desarrollo de Interfaces\Hello Worlds\01-HelloWorldWindowsForms\01-HelloWorldWindowsFormsVB\obj\Debug\01-HelloWorldWindowsFormsVB.exe
 D:\2ºDAM\Desarrollo de Interfaces\Hello Worlds\01-HelloWorldWindowsForms\01-HelloWorldWindowsFormsVB\obj\Debug\01-HelloWorldWindowsFormsVB.pdb
 D:\2ºDAM\Desarrollo de Interfaces\Hello Worlds\01-HelloWorldWindowsForms\01-HelloWorldWindowsFormsVB\obj\Debug\_01_HelloWorldWindowsFormsVB.Form1.resources
+C:\Users\Dani\Documents\GitHub\Desarrollo-de-Interfaces\01-HelloWorldWindowsForms\01-HelloWorldWindowsFormsVB\bin\Debug\01-HelloWorldWindowsFormsVB.exe.config
+C:\Users\Dani\Documents\GitHub\Desarrollo-de-Interfaces\01-HelloWorldWindowsForms\01-HelloWorldWindowsFormsVB\obj\Debug\01-HelloWorldWindowsFormsVB.exe
+C:\Users\Dani\Documents\GitHub\Desarrollo-de-Interfaces\01-HelloWorldWindowsForms\01-HelloWorldWindowsFormsVB\obj\Debug\01-HelloWorldWindowsFormsVB.pdb

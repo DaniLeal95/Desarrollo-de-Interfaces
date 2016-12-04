@@ -53,7 +53,7 @@ namespace UserControl1.UserControls
 
         public static readonly DependencyProperty FotoProperty =
           DependencyProperty.Register("Foto",  typeof(ImageSource), typeof(fichaAlumno),
-              new PropertyMetadata(new BitmapImage(new Uri("ms-appx://_UserContol/fotos/foto.jpg"))));
+              new PropertyMetadata(new BitmapImage(new Uri("ms-appx://_UserContol/fotos/logo.png"))));
     
 
 

@@ -8,12 +8,40 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
+    
     <Grid Name="gridPrincipal" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
       
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="AUTO"></RowDefinition>
-        </Grid.RowDefinitions>
-        <AppBarButton Grid.Row="1" Icon="Add" Content="Añadir Alumno" Click="AppBarButton_Click"></AppBarButton>
+        <Grid.ColumnDefinitions>
+            
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="8*"></ColumnDefinition>
+            
+        </Grid.ColumnDefinitions>
+
+        <StackPanel  Grid.Column="0" >
+            <AppBarButton Icon="Add" Content="Añadir Alumno" Click="AppBarButton_Click" Label="Añadir Contacto"></AppBarButton>
+            <TextBlock Text="Nombre..." Margin="5"/>
+            <TextBox x:Name="txtName" Margin="5"></TextBox>
+            <TextBlock Text="Apellidos..." Margin="5"/>
+            <TextBox x:Name="txtApellidos" Margin="5"></TextBox>
+            <TextBlock Text="Foto (url)..." Margin="5"/>
+            <TextBox x:Name="txturlfoto" Margin="5"> </TextBox>
+        </StackPanel>
+        <ScrollViewer  Grid.Column="1" x:Name="scroll">
+            <Grid x:Name="gridUserControls" Grid.Row="0" >
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+
+                </Grid.RowDefinitions>
+            </Grid>
+       
+        </ScrollViewer>
+
     </Grid>
 </Page>

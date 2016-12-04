@@ -33,48 +33,79 @@ namespace UserControl1
 
         public void insertarFicha(String nombre,String apellidos,String uri)
         {
-            //Creamos el UserControl
-            BitmapImage image = new BitmapImage(new Uri(uri, UriKind.Absolute));
-
             UserControls.fichaAlumno newAlumno = new UserControls.fichaAlumno();
-            newAlumno.Foto = image;
+            
             newAlumno.StudentName = nombre;
+            //Creamos el UserControl
             newAlumno.StudentFirstName = apellidos;
-
+            try
+            {
+                BitmapImage image = image = new BitmapImage(new Uri(uri, UriKind.Absolute));
+                newAlumno.Foto = image;
+                
+            }
+            catch (Exception)
+            {
+                
+            }
+            
+            
             newAlumno.HorizontalContentAlignment = HorizontalAlignment.Center;
-         
-
             //Añadimos una fila
             RowDefinition row = new RowDefinition();
-            row.Height = Windows.UI.Xaml.GridLength.Auto;
-            Grid grid = gridPrincipal;
-            RowDefinitionCollection coleccion = gridPrincipal.RowDefinitions;
-            coleccion.Add(row);
+            row.Height = new GridLength(1,GridUnitType.Star);
 
-            grid.Children.Add(newAlumno);
 
+            RowDefinitionCollection coleccionfilas = gridUserControls.RowDefinitions;
+
+            //Le asignamos a la vista el user control
+            gridUserControls.Children.Add(newAlumno);
+
+
+            Grid.SetColumn(newAlumno, columna);
+            Grid.SetRow(newAlumno, fila);
+            if (columna == 2)
+            {
+                fila += 1;
+                columna = 0;
+                coleccionfilas.Add(row);
+                
+
+            }
+            else
+            {
+                
+                columna += 1;
+            }
 
             
-            //grid.Children.Add(boton);
             
-
-            //Image imagen = new Image();
-
-
-
-
-
-            //grid.Children.Add(column);
-            columna += 1;
-            fila += 1;
-
 
 
         }
 
         private void AppBarButton_Click(object sender, RoutedEventArgs e)
         {
-            this.insertarFicha("Dani", "leal", "https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAftAAAAJDI3ZGNjMGU1LWY5NTEtNGQwOC04MGZiLWE3MmEyOGFkMzA1Yg.jpg");
+            if(txtName.Text!="" && txtApellidos.Text!="" 
+                && txturlfoto.Text!="" )
+                this.insertarFicha(txtName.Text, txtApellidos.Text, txturlfoto.Text );
+            else
+            {
+                if (txtName.Text=="")
+                {
+                    txtName.PlaceholderText = "Este campo no puede estar vacio";
+                }
+                if(txtApellidos.Text == "")
+                {
+                    txtApellidos.PlaceholderText = "Este campo no puede estar vacio";
+                }
+                if(txturlfoto.Text == "" )
+                {
+                    txturlfoto.PlaceholderText = "Este campo no puede estar vacio";
+                }
+                
+
+            }
         }
     }
 }

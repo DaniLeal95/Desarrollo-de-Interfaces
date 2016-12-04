@@ -16,7 +16,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Image Grid.Row="0" Name="imagen" Source="{Binding ElementName=UserControl,Path=Foto}" HorizontalAlignment="Center" VerticalAlignment="Center" MaxWidth="150" MaxHeight="150"></Image>
+        <Image Grid.Row="0" Name="imagen" Source="{Binding ElementName=UserControl,Path=Foto}"  HorizontalAlignment="Center" VerticalAlignment="Center" MaxWidth="150" MaxHeight="150"></Image>
         <TextBlock Grid.Row="1" Name="nombre" Text="{Binding ElementName=UserControl,Path=StudentName}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
         <TextBlock Grid.Row="2" Name="apellidos" Text="{Binding ElementName=UserControl,Path=StudentFirstName}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
     </Grid>
