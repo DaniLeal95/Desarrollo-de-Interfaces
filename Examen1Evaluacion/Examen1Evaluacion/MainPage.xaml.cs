@@ -25,27 +25,21 @@ namespace Examen1Evaluacion
     {
 
         public MainPageVM ViewModel { get; }
-        public Stopwatch miReloj = new Stopwatch();
+        
 
         public MainPage()
         {
             this.InitializeComponent();
             this.ViewModel = (MainPageVM)this.DataContext;
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(1);
-            timer.Tick += timer_Tick;
-            timer.Start();
-
-            miReloj.Start();
 
 
         }
 
-        void timer_Tick(object sender, object e)
+
+
+        private void AppBarButton_Click(object sender, RoutedEventArgs e)
         {
-            txtTimer.Text = string.Format("{0}:{1}:{2}", miReloj.Elapsed.Hours.ToString(), miReloj.Elapsed.Minutes.ToString(), miReloj.Elapsed.Seconds.ToString());
+            this.Frame.Navigate(typeof(MainPage));
         }
-
-        
     }
 }
