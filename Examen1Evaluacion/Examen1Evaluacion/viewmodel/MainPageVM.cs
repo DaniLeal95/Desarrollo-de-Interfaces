@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,33 +20,31 @@ namespace Examen1Evaluacion
         private int parejasencontradas;
         private bool _haganado;
         private bool _clickeable;
-        private DelegateCommand _reset;
-        private MainPage pagina;
-
-        private DelegateCommand _reiniciar;
+        DispatcherTimer timer;
+        public Stopwatch miReloj = new Stopwatch();
+        private Uri uridefault = new Uri("ms-appx://_Examen1Evaluacion/Fotos/logo.png", UriKind.Absolute);
+        private String _textoreloj;
 
         public MainPageVM()
         {
-            _reiniciar = new DelegateCommand(ResetCommand_Executed, ResetCommand_CanExecuted);
+            
             _lista = new Listado().list;
             NotifyPropertyChanged("lista");
             parejasencontradas = 0;
-            _haganado = false;
-            NotifyPropertyChanged("haganado");
-            _clickeable = true;
-            NotifyPropertyChanged("clickeable");
-            
+            haganado = false;
+
+            clickeable = true;
+
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Tick += timer_Tick;
+            timer.Start();
+
+            miReloj.Start();
+
+
         }
 
-        private bool ResetCommand_CanExecuted()
-        {
-            return true;
-        }
-
-        private void ResetCommand_Executed()
-        {
-            new MainPageVM();
-        }
 
         #region getters&setters
 
@@ -62,11 +61,16 @@ namespace Examen1Evaluacion
             }
         }
 
-        public DelegateCommand reiniciar
+        public String textoreloj
         {
             get
             {
-                return this._reiniciar;
+                return this._textoreloj;
+            }
+            set
+            {
+                this._textoreloj = value;
+                NotifyPropertyChanged("textoreloj");
             }
         }
 
@@ -82,15 +86,18 @@ namespace Examen1Evaluacion
                 if (_cartaSeleccionada == null || _cartaSeleccionada!=_cartaaux)
                 {
                     this._cartaSeleccionada = value;
-                    
-                    
-                      
-                    _cartaSeleccionada.uri = this.cambiaFoto(cartaSeleccionada.nombre);
-                        
-                    
-                   
-                    NotifyPropertyChanged("cartaSeleccionada");
-                    _cartaaux = _cartaSeleccionada;
+                    if (_cartaSeleccionada.uri == uridefault)
+                    {
+
+
+
+                        _cartaSeleccionada.uri = this.cambiaFoto(cartaSeleccionada.nombre);
+
+
+
+                        NotifyPropertyChanged("cartaSeleccionada");
+                        _cartaaux = _cartaSeleccionada;
+                    }
                     
                     
                 }
@@ -98,8 +105,8 @@ namespace Examen1Evaluacion
                 else
                 {
                     _cartaSeleccionada = value;
-
-                    if (!(_cartaSeleccionada == _cartaaux) )
+                    
+                    if (!(_cartaSeleccionada == _cartaaux) && _cartaSeleccionada.uri == uridefault)
                     {
                         _cartaSeleccionada.uri = this.cambiaFoto(cartaSeleccionada.nombre);
                         
@@ -153,6 +160,7 @@ namespace Examen1Evaluacion
 
         #endregion
 
+        #region metodos
         /// <summary>
         /// Metodo para cambiar la foto de default a la original
         /// </summary>
@@ -215,7 +223,6 @@ namespace Examen1Evaluacion
         private async void retrasasegundo()
         {
             clickeable = false;
-            
             await Task.Delay(1000);
             clickeable = true;
             
@@ -223,15 +230,19 @@ namespace Examen1Evaluacion
             if (_cartaaux.id == _cartaSeleccionada.id)
             {
                 parejasencontradas++;
-            }else
+                _cartaSeleccionada = null;
+                _cartaaux = null;
+                NotifyPropertyChanged("cartaSeleccionada");
+            }
+            else
             {
-                _cartaSeleccionada.uri = new Uri("ms-appx://_Examen1Evaluacion/Fotos/logo.png", UriKind.Absolute);
+                _cartaSeleccionada.uri = uridefault;
                 
                 NotifyPropertyChanged("cartaSeleccionada");
                 
                 
                 _cartaSeleccionada = _cartaaux;
-                _cartaSeleccionada.uri = new Uri("ms-appx://_Examen1Evaluacion/Fotos/logo.png", UriKind.Absolute);
+                _cartaSeleccionada.uri = uridefault;
                 
                 NotifyPropertyChanged("cartaSeleccionada");
                 
@@ -243,24 +254,14 @@ namespace Examen1Evaluacion
             if (parejasencontradas == 6)
             {
                 haganado = true;
-               
+                miReloj.Stop();
             }
         }
 
-        /// <summary>
-        /// Metodo que comprueba que los ids sean iguales.
-        /// </summary>
-        /// <param name="c1"></param>
-        /// <param name="c2"></param>
-        /// <returns></returns>
-        public bool iguales(Carta c1,Carta c2)
+        void timer_Tick(object sender, object e)
         {
-            bool igual = false;
-            if (c1.id == c2.id)
-            {
-                igual = true;
-            }
-            return igual;
+            textoreloj = string.Format("{0}:{1}:{2}", miReloj.Elapsed.Hours.ToString(), miReloj.Elapsed.Minutes.ToString(), miReloj.Elapsed.Seconds.ToString());
         }
+        #endregion
     }
 }

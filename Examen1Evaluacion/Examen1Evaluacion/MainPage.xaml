@@ -23,13 +23,13 @@
         
         
         <RelativePanel Grid.Row="0">
-            <AppBarButton Icon="Next" Label="Volver a jugar" Command="{Binding reiniciar}" RelativePanel.AlignLeftWithPanel="True"/>
-            <TextBlock Grid.Row="0" Name="txtTimer" Text="" FontSize="20" RelativePanel.AlignHorizontalCenterWithPanel="True"/>
-            <TextBlock RelativePanel.RightOf="txtTimer" FontSize="20" Text=" FELICIDADES HAS GANADO " Visibility="{Binding haganado, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+            <AppBarButton Icon="Next" Label="Volver a jugar" RelativePanel.AlignLeftWithPanel="True" Click="AppBarButton_Click"/>
+            <TextBlock Grid.Row="0" Name="txtTimer" Text="{Binding textoreloj,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" FontSize="20" RelativePanel.AlignHorizontalCenterWithPanel="True"/>
+            <TextBlock RelativePanel.Below="txtTimer" FontSize="20" Text=" FELICIDADES HAS GANADO " Visibility="{Binding haganado, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" RelativePanel.AlignHorizontalCenterWithPanel="True"/>
         </RelativePanel>
-       
-        
-        <GridView Grid.Row="1" ItemsSource="{Binding lista,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=cartaSeleccionada, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsItemClickEnabled="{Binding clickeable,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+
+
+        <GridView Grid.Row="1" ItemsSource="{Binding lista,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding clickeable,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=cartaSeleccionada, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
             <GridView.ItemTemplate>
                 <DataTemplate>
                     <Image Source="{Binding uri}" MaxWidth="450" MaxHeight="200"/>
