@@ -20,24 +20,36 @@ namespace _18_WPFPersonas_ViewModels
         private List<clsPersona> _lista;
         private String _listvisible;
         private String _btnnewvisible;
+
+        private DelegateCommand _gotoMasterDetail;
         private DelegateCommand _gotoAnadir;
+
         private DelegateCommand _eliminarCommand;
         private DelegateCommand _buscarCommand;
         private DelegateCommand _anadirCommand;
+        private DelegateCommand _actualizarCommand;
+        
+        
+
         private String textoaBuscar;
 
         public clsMainPageVM()
         {
             //lista = new clsListado().list;
             lista = new clsListadosPersonasBL().getListadoPersonaBL();
+
             _eliminarCommand = new DelegateCommand(EliminarCommand_Executed, EliminarCommand_CanExecuted);
             _gotoAnadir = new DelegateCommand(GotoAnadir_Executed);
             _anadirCommand = new DelegateCommand(AnadirCommand_Executed, AnadirCommand_CanExecuted);
+            _gotoMasterDetail = new DelegateCommand(GotoMasterDetail_Executed);
+            _actualizarCommand = new DelegateCommand(ActualizarCommand_Executed, ActualizarCommand_CanExecuted);
+
             _btnnewvisible = "Collapsed";
             _listvisible = "Visible";
+            
         }
 
-        
+
 
 
 
@@ -79,6 +91,7 @@ namespace _18_WPFPersonas_ViewModels
             {
                 _personaSeleccionada = value;
                 _eliminarCommand.RaiseCanExecuteChanged();
+                _actualizarCommand.RaiseCanExecuteChanged();
                 NotifyPropertyChanged("personaSeleccionada");
 
             }
@@ -102,11 +115,28 @@ namespace _18_WPFPersonas_ViewModels
                 return _anadirCommand;
             }
         }
+
         public DelegateCommand gotoAnadir
         {
             get
             {
                 return this._gotoAnadir;
+            }
+        }
+
+        public DelegateCommand actualizarCommand
+        {
+            get
+            {
+                return this._actualizarCommand;
+            }
+        }
+
+        public DelegateCommand gotoMasterDetail
+        {
+            get
+            {
+                return this._gotoMasterDetail;
             }
         }
 
@@ -133,6 +163,7 @@ namespace _18_WPFPersonas_ViewModels
             }
         }
         #endregion
+
         #region funciones
 
         private bool EliminarCommand_CanExecuted()
@@ -149,31 +180,46 @@ namespace _18_WPFPersonas_ViewModels
 
             try
             {
-                cmpb.deletePersona(_personaSeleccionada.id);
-                lista = new clsListadosPersonasBL().getListadoPersonaBL();
-                personaSeleccionada = null;
-                NotifyPropertyChanged("lista");
+                if (MessageBox.Show("Confirma borrar la persona?", "Confirmar borrado", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    cmpb.deletePersona(_personaSeleccionada.id);
+                    lista = new clsListadosPersonasBL().getListadoPersonaBL();
+                    personaSeleccionada = null;
+                    NotifyPropertyChanged("lista");
+                }
             }catch(Exception e)
             {
                 MessageBox.Show(e.Message);
             }
             
         }
-      
 
         private void GotoAnadir_Executed()
         {
-            clsManejadoraPersonaBL cmpb = new clsManejadoraPersonaBL();
 
             listvisible = "Collapsed";
             btnnewvisible = "Visible";
             
+
             NotifyPropertyChanged("btnnewvisible");
             NotifyPropertyChanged("listvisible");
-            _personaSeleccionada = new clsPersona();
+            
+
+            personaSeleccionada = new clsPersona();
         }
 
-        
+        private void GotoMasterDetail_Executed()
+        {
+            listvisible = "Visible"; 
+             btnnewvisible = "Collapsed";
+
+
+            NotifyPropertyChanged("btnnewvisible");
+            NotifyPropertyChanged("listvisible");
+
+
+            personaSeleccionada = null;
+        }
 
         public void buscarCommand_Executed()
         {
@@ -198,25 +244,49 @@ namespace _18_WPFPersonas_ViewModels
         private void AnadirCommand_Executed()
         {
             clsManejadoraPersonaBL cmpb = new clsManejadoraPersonaBL();
+            try{
+                    cmpb.insertPerson(personaSeleccionada);
+               
+                
+                    listvisible = "Visible";
+                    btnnewvisible = "Collapsed";
+
+                    NotifyPropertyChanged("btnnewvisible");
+                    NotifyPropertyChanged("listvisible");
+                
+                    lista = new clsListadosPersonasBL().getListadoPersonaBL();
+                    NotifyPropertyChanged("lista");
+                }
+                catch (Exception )
+                {
+                    MessageBox.Show("Error con la bbdd");
+                }
+        }
+
+        private bool ActualizarCommand_CanExecuted()
+        {
+            bool posible = false;
+            if(personaSeleccionada!= null){
+                posible = true;
+            }
+            return posible;
+        }
+
+        private void ActualizarCommand_Executed()
+        {
+            clsManejadoraPersonaBL cmpb = new clsManejadoraPersonaBL();
             try
             {
-
-                cmpb.insertPerson(personaSeleccionada);
-                listvisible = "Visible";
-                btnnewvisible = "Collapsed";
-
-                NotifyPropertyChanged("btnnewvisible");
-                NotifyPropertyChanged("listvisible");
+                cmpb.updatePerson(personaSeleccionada);
                 lista = new clsListadosPersonasBL().getListadoPersonaBL();
                 NotifyPropertyChanged("lista");
 
-                
-
             }
-            catch (Exception e)
+            catch (Exception)
             {
-
+                MessageBox.Show("Error con la BBDD");
             }
+
         }
 
         #endregion

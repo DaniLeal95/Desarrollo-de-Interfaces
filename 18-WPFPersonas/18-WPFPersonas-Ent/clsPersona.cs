@@ -18,7 +18,7 @@ namespace _18_WPFPersonas_Ent
         public int id { get; set; }
         public String nombre { get; set; }
         public String apellido { get; set; }
-        public DateTime fechaNac { get; set; }
+        public DateTime? fechaNac { get; set; }
         public string direccion { get; set; }
         public string telefono { get; set; }
         
@@ -43,7 +43,7 @@ namespace _18_WPFPersonas_Ent
             this.id = 1;
             this.nombre = "";
             this.apellido = "";
-            this.fechaNac =new DateTime();
+            this.fechaNac = null;
             this.direccion = "";
             this.telefono = "";
         }

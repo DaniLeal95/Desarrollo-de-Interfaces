@@ -20,7 +20,7 @@
             <Button ToolTip="Borrar" Command="{Binding EliminarCommand}">
                 <Image Source="../Assets/delete.png" MaxWidth="36"></Image>
             </Button>
-            <Button ToolTip="Guardar">
+            <Button ToolTip="Guardar" Command="{Binding actualizarCommand}" Click="btnGuardar_Click">
                 <Image Source="../Assets/save.png" MaxWidth="36"></Image>
             </Button>
         </StackPanel>
@@ -28,7 +28,7 @@
         
         <!--LISTA-->
         <ScrollViewer Visibility="{Binding listvisible}" Name="scrollViewlist" DockPanel.Dock="Left">
-            <ListView x:Name="lista" ItemsSource="{Binding lista}" SelectedItem="{Binding personaSeleccionada, Mode=TwoWay}">
+            <ListView x:Name="lista" ItemsSource="{Binding lista}" SelectedItem="{Binding personaSeleccionada, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
 
                 <!--TEMPLATE OF LIST-->
                 <ListView.ItemTemplate>
@@ -48,11 +48,13 @@
             <Button Command="{Binding AnadirCommand}" Click="btnGuardar_Click">
                 <Image Source="../Assets/save.png" MaxWidth="36"></Image>
             </Button>
-            <Button>
+            <Button Command="{Binding gotoMasterDetail}">
                 <Image Source="../Assets/atras.png" MaxWidth="36"></Image>
             </Button>
             
         </StackPanel>
+        
+        
         <!--GRID PARA DETALLES-->
         <Grid DataContext="{Binding personaSeleccionada}" Name="Details">
             <Grid.ColumnDefinitions>
@@ -77,12 +79,12 @@
             <TextBlock Grid.Column="0" Grid.Row="4" Text="Dirección:" FontSize="20" Margin="15"/>
 
             <!--Segunda Columna-->
-            <TextBox Grid.Column="1" Grid.Row="0" x:Name="txtNombre" Text="{Binding Path=nombre, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="15"></TextBox>
-            <TextBox Grid.Column="1" Grid.Row="1" x:Name="txtApellidos" Margin="15" Text="{Binding Path=apellido, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-            <TextBox Grid.Column="1" Grid.Row="2" x:Name="txtFechaNacimiento" Margin="15" Text="{Binding Path=fechaNac, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-            <TextBox Grid.Column="1" Grid.Row="3" x:Name="txtTelefono" Margin="15" Text="{Binding Path=telefono, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
+            <TextBox Grid.Column="1" Grid.Row="0" x:Name="txtNombre" Text="{Binding Path=nombre, Mode=TwoWay, UpdateSourceTrigger=Explicit}" Margin="15"></TextBox>
+            <TextBox Grid.Column="1" Grid.Row="1" x:Name="txtApellidos" Margin="15" Text="{Binding Path=apellido, Mode=TwoWay, UpdateSourceTrigger=Explicit}"></TextBox>
+            <TextBox Grid.Column="1" Grid.Row="2" x:Name="txtFechaNacimiento" Margin="15" Text="{Binding Path=fechaNac, Mode=TwoWay, UpdateSourceTrigger=Explicit}"></TextBox>
+            <TextBox Grid.Column="1" Grid.Row="3" x:Name="txtTelefono" Margin="15" Text="{Binding Path=telefono, Mode=TwoWay, UpdateSourceTrigger=Explicit}" ></TextBox>
             <ScrollViewer Grid.Column="1" Grid.Row="5" Grid.RowSpan="3" Margin="15" >
-                <TextBox  x:Name="txtDescripcion" Margin="5" TextWrapping="Wrap" Text="{Binding Path=direccion, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
+                <TextBox  x:Name="txtDescripcion" Margin="5" TextWrapping="Wrap" Text="{Binding Path=direccion, Mode=TwoWay, UpdateSourceTrigger=Explicit}" ></TextBox>
             </ScrollViewer>
 
         </Grid>
