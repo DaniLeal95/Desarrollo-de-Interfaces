@@ -15,21 +15,21 @@ namespace _Binding2.Models
         //propiedades y Getters/Setters
         private String _nombre { get; set; }
         private String _apellido { get; set; }
-        private DateTime? _fNac { get; set; }
+        private DateTime? _fechaNac { get; set; }
         private String _telefono { get; set; }
-        private String _detalles;
+        private String _direccion;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         //constructores
-        public clsPersona(String nombre, String apellido, DateTime fNac,String telefono, String detalles)
+        public clsPersona(String nombre, String apellido, DateTime fechaNac, String telefono, String direccion)
         {
 
             this._nombre = nombre;
             this._apellido = apellido;
-            this._fNac = fNac;
+            this._fechaNac = fechaNac;
             this._telefono = telefono;
-            this._detalles = detalles; 
+            this._direccion = direccion; 
            
         }
 
@@ -37,9 +37,9 @@ namespace _Binding2.Models
         {
             this._nombre = null;
             this._apellido = null;
-            this._fNac = null;
+            this._fechaNac = null;
             this._telefono = null;
-            this._detalles = null; 
+            this._direccion = null; 
         }
 
         public String nombre
@@ -68,16 +68,16 @@ namespace _Binding2.Models
             }
         }
 
-        public DateTime? fNac
+        public DateTime? fechaNac
         {
             get
             {
-                return this._fNac;
+                return this._fechaNac;
             }
             set
             {
-                this._fNac = value;
-                OnPropertyChanged("Fnac");
+                this._fechaNac = value;
+                OnPropertyChanged("fechaNac");
             }
         }
 
@@ -94,16 +94,16 @@ namespace _Binding2.Models
             }
         }
 
-        public String detalles
+        public String direccion
         {
             get
             {
-                return this._detalles;
+                return this._direccion;
             }
             set
             {
-                this._detalles = detalles;
-                OnPropertyChanged("detalles");
+                this._direccion = value;
+                OnPropertyChanged("direccion");
             }
         }
 

@@ -41,6 +41,16 @@ namespace Binding2
 
            // allContactsMenuFlyout.ShowAt(listView,e.getPostion(listView));
         }
+
+        private void AppBarButton_Click(object sender, RoutedEventArgs e)
+        {
+            txtNombre.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+            txtApellidos.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+            txtFechaNacimiento.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+            txtTelefono.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+            txtDireccion.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+            lista.GetBindingExpression(ListView.ItemsSourceProperty).UpdateSource();
+        }
     }
    
 }

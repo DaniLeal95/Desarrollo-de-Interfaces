@@ -87,19 +87,13 @@
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal">
 
-
-                <StackPanel Grid.Row="0" Background="LightBlue">
-                    <AppBarButton  Icon="Delete" Click="{x:Bind ViewModel.btnborrar_Click}" Label="Bind" ></AppBarButton>
-                    
-                </StackPanel>
-
-                <StackPanel Orientation="Vertical" Grid.Row="0" Background="LightBlue">
-                    <AppBarButton Name="borrarCommand"  Icon="Delete"  Command="{Binding EliminarCommand}" Label="Command"></AppBarButton>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBox Name="personaABuscar" Text="{Binding textoAbuscar,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                    <AppBarButton  Icon="Find"  Command="{Binding buscarCommand}" Label="Command"></AppBarButton>
-                </StackPanel>
+                <AppBarButton  Grid.Row="0" Background="LightBlue" Icon="Save" Click="AppBarButton_Click" Label="Bind" ></AppBarButton>
+                <AppBarButton  Grid.Row="0"  Background="LightBlue" Name="borrarCommand"  Icon="Delete"  Command="{Binding EliminarCommand}" Label="Command"></AppBarButton>
+                
+            <StackPanel Orientation="Horizontal">
+               <TextBox Name="personaABuscar" Text="{Binding textoAbuscar,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+               <AppBarButton  Icon="Find"  Command="{Binding buscarCommand}" Label="Command"></AppBarButton>
+             </StackPanel>
 
 
             </StackPanel>
@@ -143,12 +137,12 @@
             <TextBlock Grid.Column="0" Grid.Row="4" Text="Dirección:" FontSize="20" Margin="15"/>
             
             <!--Segunda Columna-->
-            <TextBox Grid.Column="1" Grid.Row="0" x:Name="txtNombre" Text="{Binding Path=nombre, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="15"> </TextBox>
-            <TextBox Grid.Column="1" Grid.Row="1" x:Name="txtApellidos" Margin="15" Text="{Binding Path=apellido, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"> </TextBox>
-            <TextBox Grid.Column="1" Grid.Row="2" x:Name="txtFechaNacimiento" Margin="15" Text="{Binding Path=fNac, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-            <TextBox Grid.Column="1" Grid.Row="3" x:Name="txtTelefono" Margin="15" Text="{Binding Path=telefono, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
+            <TextBox Grid.Column="1" Grid.Row="0" x:Name="txtNombre" Text="{Binding Path=nombre, Mode=TwoWay, UpdateSourceTrigger=Explicit}" Margin="15"> </TextBox>
+            <TextBox Grid.Column="1" Grid.Row="1" x:Name="txtApellidos" Margin="15" Text="{Binding Path=apellido, Mode=TwoWay, UpdateSourceTrigger=Explicit}"> </TextBox>
+            <TextBox Grid.Column="1" Grid.Row="2" x:Name="txtFechaNacimiento" Margin="15" Text="{Binding Path=fechaNac, Mode=TwoWay, UpdateSourceTrigger=Explicit}"></TextBox>
+            <TextBox Grid.Column="1" Grid.Row="3" x:Name="txtTelefono" Margin="15" Text="{Binding Path=telefono, Mode=TwoWay, UpdateSourceTrigger=Explicit}" ></TextBox>
             <ScrollViewer Grid.Column="1" Grid.Row="5" Grid.RowSpan="3" Margin="15" >
-                <TextBox  x:Name="txtDescripcion" Margin="5" TextWrapping="Wrap" Text="{Binding Path=detalles, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
+                <TextBox  x:Name="txtDireccion" Margin="5" TextWrapping="Wrap" Text="{Binding Path=direccion, Mode=TwoWay, UpdateSourceTrigger=Explicit}" ></TextBox>
             </ScrollViewer>
 
         </Grid>

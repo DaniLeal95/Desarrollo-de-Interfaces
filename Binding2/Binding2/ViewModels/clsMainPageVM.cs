@@ -8,22 +8,33 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Windows.UI.Xaml;
 using _13_DataContext.ViewModels;
+using Windows.UI.Xaml.Controls;
+using Windows.Web.Http;
 
 namespace Binding2.ViewModels
 {
-    public class clsMainPageVM:INotifyPropertyChanged
+    public class clsMainPageVM:clsVMBase
     {
         private clsPersona _personaSeleccionada;
         private ObservableCollection<clsPersona> _lista;
-        public event PropertyChangedEventHandler PropertyChanged;
+        
         private DelegateCommand _eliminarCommand;
         private DelegateCommand _buscarCommand;
         private String textoaBuscar;
 
         public clsMainPageVM()
         {
-           lista = new clsListado().list;
+            //lista = new clsListado().list;
+            //Llamamos a un metodo asíncrono
+            rellenaLista();
             _eliminarCommand = new DelegateCommand(EliminarCommand_Executed, EliminarCommand_CanExecuted);
+        }
+
+        private async void rellenaLista()
+        {
+            clsListado olistados = new clsListado();
+            lista = await olistados.getPersonas();
+            NotifyPropertyChanged("lista");
         }
 
         #region getters&setters
@@ -38,7 +49,7 @@ namespace Binding2.ViewModels
             {
                 _personaSeleccionada = value;
                 _eliminarCommand.RaiseCanExecuteChanged();
-                OnPropertyChanged("personaSeleccionada");
+                NotifyPropertyChanged("personaSeleccionada");
 
             }
         }
@@ -72,23 +83,14 @@ namespace Binding2.ViewModels
             set
             {
                 this._lista = value;
-                OnPropertyChanged("_lista");
+                NotifyPropertyChanged("lista");
                 
             }
         }
         #endregion
         #region funciones
 
-        // Create the OnPropertyChanged method to raise the event
-        protected void OnPropertyChanged(string name)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(name));
-            }
-        }
+ 
 
         public void btnborrar_Click(Object sender, RoutedEventArgs e)
         {
@@ -103,13 +105,27 @@ namespace Binding2.ViewModels
             return sePuedeBorrar;
         }
 
-      /*  private bool BuscarCommand_CanExecuted()
-        {
+        /*  private bool BuscarCommand_CanExecuted()
+          {
 
-        }*/
+          }*/
 
-        private void EliminarCommand_Executed()
+        private async void EliminarCommand_Executed()
         {
+            HttpStatusCode respuesta;
+            ContentDialog dialogo = new ContentDialog();
+            dialogo.Title = "Eliminar";
+            dialogo.Content = "¿Estña seguro de que sea borrar?";
+            dialogo.PrimaryButtonText = "Cancelar";
+            dialogo.SecondaryButtonText = "Aceptar";
+
+            ContentDialogResult resultado = await dialogo.ShowAsync();
+
+            if(resultado == ContentDialogResult.Secondary)
+            {
+                try { }
+                catch (Exception) { }
+            }
             lista.Remove(_personaSeleccionada);
             personaSeleccionada = null;
         }
@@ -127,7 +143,7 @@ namespace Binding2.ViewModels
                 lista = new ObservableCollection<clsPersona>(lista);
             }
             
-           INotifyPropertyChanged("lista");
+           NotifyPropertyChanged("lista");
         }
         #endregion
     }
