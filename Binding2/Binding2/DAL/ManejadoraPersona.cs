@@ -1,4 +1,5 @@
 ﻿using _Binding2.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,27 +14,48 @@ namespace Binding2.DAL
     {
         string stringurl = "http://webapirestdanileal.azurewebsites.net/api/personas/";
 
-        public async Task<ObservableCollection<clsPersona>> DeletePersona(int id)
-        {
-            ObservableCollection<clsPersona> lista = new ObservableCollection<clsPersona>();
-            //HttpBaseProtocolFilter filtro = new HttpBaseProtocolFilter();
-            //filtro.CacheControl.ReadBehavior = HttpCacheReadBehavior.MostRecent;
-            //filtro.CacheControl.WriteBehavior = HttpCacheWriteBehavior.NoCache;
-            HttpClient mihttpClient = new HttpClient();
 
+        /// <summary>
+        ///     Metodo que borra una persona de la bbdd segun el id que nos pasen.
+        /// </summary>
+        /// <param name="id"></param>
+        public async void DeletePersona(int id)
+        {
+            HttpClient mihttpClient = new HttpClient();
             try
             {
-
                 stringurl = stringurl + id;
                 Uri url = new Uri(stringurl);
-                lista = JsonConvert.DeserializeObject<ObservableCollection<clsPersona>>(respuesta);
+                await mihttpClient.DeleteAsync(url);
             }
             catch (Exception)
             {
 
             }
 
-            return lista;
+        }
+
+        /// <summary>
+        /// Metodo para guardar una persona
+        /// </summary>
+        /// <param name="persona"></param>
+        public async void SavePersona(clsPersona persona)
+        {
+            HttpClient mihttpClient = new HttpClient();
+            Uri url = new Uri(stringurl);
+            try
+            {
+                string jsonconvertido=JsonConvert.SerializeObject(persona);
+                IHttpContent contentPost = new HttpStringContent(jsonconvertido,Windows.Storage.Streams.UnicodeEncoding.Utf8,"application/json");
+                await mihttpClient.PostAsync(url, contentPost);
+               
+
+       
+            }
+            catch (Exception)
+            {
+
+            }
         }
     }
 }

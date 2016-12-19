@@ -216,15 +216,15 @@ namespace Examen1Evaluacion
 
 
         /// <summary>
-        /// Metodo asincrono que retrasa la instruccion siguiente 1 segundo
+        /// Metodo asincrono que retrasa la instruccion siguiente 1 segundo si las dos cartas
+        ///     seleccionadas son incorrectas
+        ///     
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private async void retrasasegundo()
         {
-            clickeable = false;
-            await Task.Delay(1000);
-            clickeable = true;
+            
             
 
             if (_cartaaux.id == _cartaSeleccionada.id)
@@ -236,6 +236,9 @@ namespace Examen1Evaluacion
             }
             else
             {
+                clickeable = false;
+                await Task.Delay(1000);
+                clickeable = true;
                 _cartaSeleccionada.uri = uridefault;
                 
                 NotifyPropertyChanged("cartaSeleccionada");

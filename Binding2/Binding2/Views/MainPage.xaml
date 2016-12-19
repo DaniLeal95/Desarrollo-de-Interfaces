@@ -87,7 +87,7 @@
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal">
 
-                <AppBarButton  Grid.Row="0" Background="LightBlue" Icon="Save" Click="AppBarButton_Click" Label="Bind" ></AppBarButton>
+                <AppBarButton  Grid.Row="0" Background="LightBlue" Icon="Save" Click="AppBarButton_Click" Label="Bind" Command="{Binding guardarCommand}"></AppBarButton>
                 <AppBarButton  Grid.Row="0"  Background="LightBlue" Name="borrarCommand"  Icon="Delete"  Command="{Binding EliminarCommand}" Label="Command"></AppBarButton>
                 
             <StackPanel Orientation="Horizontal">

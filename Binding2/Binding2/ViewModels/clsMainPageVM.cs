@@ -10,6 +10,7 @@ using Windows.UI.Xaml;
 using _13_DataContext.ViewModels;
 using Windows.UI.Xaml.Controls;
 using Windows.Web.Http;
+using Binding2.DAL;
 
 namespace Binding2.ViewModels
 {
@@ -17,7 +18,7 @@ namespace Binding2.ViewModels
     {
         private clsPersona _personaSeleccionada;
         private ObservableCollection<clsPersona> _lista;
-        
+        private DelegateCommand _guardarCommand;
         private DelegateCommand _eliminarCommand;
         private DelegateCommand _buscarCommand;
         private String textoaBuscar;
@@ -28,6 +29,15 @@ namespace Binding2.ViewModels
             //Llamamos a un metodo asíncrono
             rellenaLista();
             _eliminarCommand = new DelegateCommand(EliminarCommand_Executed, EliminarCommand_CanExecuted);
+            _guardarCommand = new DelegateCommand(GuardarCommand_Executed, EliminarCommand_CanExecuted);
+        }
+
+        private async void GuardarCommand_Executed()
+        {
+            ManejadoraPersona mp = new ManejadoraPersona();
+            mp.SavePersona(personaSeleccionada);
+            clsListado listado = new clsListado();
+            lista = await listado.getPersonas();
         }
 
         private async void rellenaLista()
@@ -49,11 +59,21 @@ namespace Binding2.ViewModels
             {
                 _personaSeleccionada = value;
                 _eliminarCommand.RaiseCanExecuteChanged();
+                _guardarCommand.RaiseCanExecuteChanged();
                 NotifyPropertyChanged("personaSeleccionada");
 
             }
         }
+        public DelegateCommand guardarCommand
+        {
+            get
+            {
 
+                return _guardarCommand;
+            }
+
+
+        }
         public DelegateCommand EliminarCommand
         {
             get
@@ -112,10 +132,10 @@ namespace Binding2.ViewModels
 
         private async void EliminarCommand_Executed()
         {
-            HttpStatusCode respuesta;
+            
             ContentDialog dialogo = new ContentDialog();
             dialogo.Title = "Eliminar";
-            dialogo.Content = "¿Estña seguro de que sea borrar?";
+            dialogo.Content = "¿Está seguro de que sea borrar?";
             dialogo.PrimaryButtonText = "Cancelar";
             dialogo.SecondaryButtonText = "Aceptar";
 
@@ -123,10 +143,16 @@ namespace Binding2.ViewModels
 
             if(resultado == ContentDialogResult.Secondary)
             {
-                try { }
+                try
+                {
+                    ManejadoraPersona mp = new ManejadoraPersona();
+                    mp.DeletePersona(personaSeleccionada.id);
+                    clsListado listado = new clsListado();
+                    lista =await listado.getPersonas();
+                }
                 catch (Exception) { }
             }
-            lista.Remove(_personaSeleccionada);
+            
             personaSeleccionada = null;
         }
 

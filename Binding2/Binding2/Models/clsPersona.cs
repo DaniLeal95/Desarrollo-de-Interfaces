@@ -18,6 +18,7 @@ namespace _Binding2.Models
         private DateTime? _fechaNac { get; set; }
         private String _telefono { get; set; }
         private String _direccion;
+        public int id { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -68,6 +69,7 @@ namespace _Binding2.Models
             }
         }
 
+        
         public DateTime? fechaNac
         {
             get
