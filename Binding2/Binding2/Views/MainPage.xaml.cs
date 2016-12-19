@@ -50,6 +50,8 @@ namespace Binding2
             txtTelefono.GetBindingExpression(TextBox.TextProperty).UpdateSource();
             txtDireccion.GetBindingExpression(TextBox.TextProperty).UpdateSource();
             lista.GetBindingExpression(ListView.ItemsSourceProperty).UpdateSource();
+
+
         }
     }
    

@@ -43,6 +43,7 @@ namespace Binding2.DAL
         {
             HttpClient mihttpClient = new HttpClient();
             Uri url = new Uri(stringurl);
+
             try
             {
                 string jsonconvertido=JsonConvert.SerializeObject(persona);
@@ -51,6 +52,27 @@ namespace Binding2.DAL
                
 
        
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+
+        /// <summary>
+        ///     Metodo para actualizar una persona
+        /// </summary>
+        /// <param name="persona"></param>
+        public async void UpdatePerson(clsPersona persona)
+        {
+            HttpClient mihttpClient = new HttpClient();
+            stringurl = stringurl + persona.id;
+            Uri url = new Uri(stringurl);
+            try
+            {
+                string jsonconvertido = JsonConvert.SerializeObject(persona);
+                IHttpContent contentput = new HttpStringContent(jsonconvertido, Windows.Storage.Streams.UnicodeEncoding.Utf8, "application/json");
+                await mihttpClient.PutAsync(url, contentput);
             }
             catch (Exception)
             {

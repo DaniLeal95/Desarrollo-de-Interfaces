@@ -12,39 +12,29 @@ using Windows.UI.Xaml.Controls;
 using Windows.Web.Http;
 using Binding2.DAL;
 
+using System.Globalization;
+
 namespace Binding2.ViewModels
 {
-    public class clsMainPageVM:clsVMBase
+    public class clsMainPageVM : clsVMBase 
     {
         private clsPersona _personaSeleccionada;
         private ObservableCollection<clsPersona> _lista;
         private DelegateCommand _guardarCommand;
+        private DelegateCommand _addCommand;
         private DelegateCommand _eliminarCommand;
         private DelegateCommand _buscarCommand;
-        private String textoaBuscar;
+
+        public String textoaBuscar { get; set; }
 
         public clsMainPageVM()
         {
-            //lista = new clsListado().list;
+            
             //Llamamos a un metodo asíncrono
             rellenaLista();
             _eliminarCommand = new DelegateCommand(EliminarCommand_Executed, EliminarCommand_CanExecuted);
-            _guardarCommand = new DelegateCommand(GuardarCommand_Executed, EliminarCommand_CanExecuted);
-        }
-
-        private async void GuardarCommand_Executed()
-        {
-            ManejadoraPersona mp = new ManejadoraPersona();
-            mp.SavePersona(personaSeleccionada);
-            clsListado listado = new clsListado();
-            lista = await listado.getPersonas();
-        }
-
-        private async void rellenaLista()
-        {
-            clsListado olistados = new clsListado();
-            lista = await olistados.getPersonas();
-            NotifyPropertyChanged("lista");
+            _guardarCommand = new DelegateCommand(GuardarCommand_Executed, GuardarCommand_CanExecuted);
+            _addCommand = new DelegateCommand(addCommand_Executed);
         }
 
         #region getters&setters
@@ -60,6 +50,7 @@ namespace Binding2.ViewModels
                 _personaSeleccionada = value;
                 _eliminarCommand.RaiseCanExecuteChanged();
                 _guardarCommand.RaiseCanExecuteChanged();
+                _addCommand.RaiseCanExecuteChanged();
                 NotifyPropertyChanged("personaSeleccionada");
 
             }
@@ -73,6 +64,15 @@ namespace Binding2.ViewModels
             }
 
 
+        }
+
+        public DelegateCommand addCommand
+        {
+            get
+            {
+
+                return _addCommand;
+            }
         }
         public DelegateCommand EliminarCommand
         {
@@ -110,26 +110,21 @@ namespace Binding2.ViewModels
         #endregion
         #region funciones
 
- 
-
-        public void btnborrar_Click(Object sender, RoutedEventArgs e)
-        {
-            lista.Remove(_personaSeleccionada);
-        }
-
+        /// <summary>
+        ///  Metodo para comprobar si puede ejecutarse el comando De eliminar
+        /// </summary>
+        /// <returns></returns>
         private bool EliminarCommand_CanExecuted()
         {
             bool sePuedeBorrar = false;
 
-            if (_personaSeleccionada != null){ sePuedeBorrar = true; }
+            if (_personaSeleccionada != null && _personaSeleccionada.id!=-1){ sePuedeBorrar = true; }
             return sePuedeBorrar;
         }
 
-        /*  private bool BuscarCommand_CanExecuted()
-          {
-
-          }*/
-
+        /// <summary>
+        /// Metodo para eliminar a una persona
+        /// </summary>
         private async void EliminarCommand_Executed()
         {
             
@@ -147,30 +142,89 @@ namespace Binding2.ViewModels
                 {
                     ManejadoraPersona mp = new ManejadoraPersona();
                     mp.DeletePersona(personaSeleccionada.id);
-                    clsListado listado = new clsListado();
-                    lista =await listado.getPersonas();
+                    
+                    
                 }
-                catch (Exception) { }
+                catch (Exception)
+                {
+
+                }
+
+                try
+                {
+                    await Task.Delay(1000);
+                    personaSeleccionada = null;
+                    this.rellenaLista();
+                }
+                catch (Exception)
+                {
+
+                }
             }
-            
-            personaSeleccionada = null;
+
         }
 
-
-        public void buscarCommand_Executed()
+        private bool GuardarCommand_CanExecuted()
         {
-            if (!String.IsNullOrEmpty(textoaBuscar))
+            bool sePuedeGuardar = false;
+
+            if (_personaSeleccionada != null) { sePuedeGuardar = true; }
+            return sePuedeGuardar;
+        }
+
+        private async void GuardarCommand_Executed()
+        {
+            ManejadoraPersona mp = new ManejadoraPersona();
+            if (personaSeleccionada.id == -1)
             {
-                var listarFiltrada = from p in _lista where p.nombre.StartsWith(textoaBuscar) select p;
-                lista = new ObservableCollection<clsPersona>(listarFiltrada);
+                //Si el id es igua a -1 quiere decir que es una insercion
+                mp.SavePersona(personaSeleccionada);
             }
             else
             {
-                lista = new ObservableCollection<clsPersona>(lista);
+                //si no una actualizacion
+                mp.UpdatePerson(personaSeleccionada);
+            }
+
+            personaSeleccionada = null;
+
+            lista = await new clsListado().getPersonas();
+            NotifyPropertyChanged("lista");
+
+        }
+
+        private void addCommand_Executed()
+        {
+            personaSeleccionada = new clsPersona();
+            
+            NotifyPropertyChanged("personaSeleccionada");
+        }
+
+        private async void rellenaLista()
+        {
+            clsListado olistados = new clsListado();
+            lista = await olistados.getPersonas();
+            NotifyPropertyChanged("lista");
+        }
+
+        public async void buscarCommand_Executed()
+        {
+            try
+            {
+                clsListado olistados = new clsListado();
+                lista = await olistados.getPersonas(textoaBuscar);
+                NotifyPropertyChanged("lista");
+            }
+            catch(Exception)
+            {
+
             }
             
            NotifyPropertyChanged("lista");
         }
+
+
+
         #endregion
     }
 }

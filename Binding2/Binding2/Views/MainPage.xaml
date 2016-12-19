@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="using:Binding2.ViewModels"
+    
     mc:Ignorable="d">
     
     <Page.DataContext>
@@ -17,6 +18,7 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Name="Total">
         <!-- ADAPTATIVE TRIGGER-->
 
+        
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="VisualStateGroup">
 
@@ -76,27 +78,30 @@
             <ColumnDefinition x:Name="Columna1" Width="3*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition x:Name="Fila0" Height="*"/>
-            <RowDefinition x:Name="Fila1" Height="Auto"/>
+            <RowDefinition x:Name="Fila0" Height="Auto"/>
+            <RowDefinition x:Name="Fila1" Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid  Grid.Column="0" Grid.Row="0">
+        <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" Grid.Row="0" Grid.Column="0">
+
+            <AppBarButton  Grid.Row="0" Background="LightBlue" Icon="Add" Click="AppBarButton_Click" Label="Add" Command="{Binding addCommand}"></AppBarButton>
+            <AppBarButton  Grid.Row="0" Background="LightBlue" Icon="Save" Click="AppBarButton_Click" Label="Save" Command="{Binding guardarCommand}"></AppBarButton>
+            <AppBarButton  Grid.Row="0"  Background="LightBlue" Name="borrarCommand"  Icon="Delete"  Command="{Binding EliminarCommand}" Label="Delete"></AppBarButton>
+
+
+            <StackPanel Orientation="Horizontal"  Background="LightBlue">
+                <TextBox Name="personaABuscar" Text="{Binding textoaBuscar,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <AppBarButton  Icon="Find"  Command="{Binding buscarCommand}" Label="Search"></AppBarButton>
+            </StackPanel>
+
+
+        </StackPanel>
+        <Grid  Grid.Column="0" Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="AUTO"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
-            <StackPanel Orientation="Horizontal">
-
-                <AppBarButton  Grid.Row="0" Background="LightBlue" Icon="Save" Click="AppBarButton_Click" Label="Bind" Command="{Binding guardarCommand}"></AppBarButton>
-                <AppBarButton  Grid.Row="0"  Background="LightBlue" Name="borrarCommand"  Icon="Delete"  Command="{Binding EliminarCommand}" Label="Command"></AppBarButton>
-                
-            <StackPanel Orientation="Horizontal">
-               <TextBox Name="personaABuscar" Text="{Binding textoAbuscar,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
-               <AppBarButton  Icon="Find"  Command="{Binding buscarCommand}" Label="Command"></AppBarButton>
-             </StackPanel>
-
-
-            </StackPanel>
+          
             <ScrollViewer  Name="list" Grid.Row="1">
                 <ListView x:Name="lista" ItemsSource="{Binding lista}" SelectedItem="{Binding personaSeleccionada, Mode=TwoWay}" RightTapped="lista_RightTapped" >
                 
@@ -114,7 +119,7 @@
             </ScrollViewer>
         </Grid>
 
-        <Grid Grid.Column="1" DataContext="{Binding personaSeleccionada}" Name="Details" Grid.Row="0">
+        <Grid Grid.Row="1"  Grid.Column="1" DataContext="{Binding personaSeleccionada}" Name="Details" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="2*"/>
@@ -139,8 +144,10 @@
             <!--Segunda Columna-->
             <TextBox Grid.Column="1" Grid.Row="0" x:Name="txtNombre" Text="{Binding Path=nombre, Mode=TwoWay, UpdateSourceTrigger=Explicit}" Margin="15"> </TextBox>
             <TextBox Grid.Column="1" Grid.Row="1" x:Name="txtApellidos" Margin="15" Text="{Binding Path=apellido, Mode=TwoWay, UpdateSourceTrigger=Explicit}"> </TextBox>
-            <TextBox Grid.Column="1" Grid.Row="2" x:Name="txtFechaNacimiento" Margin="15" Text="{Binding Path=fechaNac, Mode=TwoWay, UpdateSourceTrigger=Explicit}"></TextBox>
-            <TextBox Grid.Column="1" Grid.Row="3" x:Name="txtTelefono" Margin="15" Text="{Binding Path=telefono, Mode=TwoWay, UpdateSourceTrigger=Explicit}" ></TextBox>
+
+            <TextBox Grid.Column="1" Grid.Row="2" x:Name="txtFechaNacimiento"  Margin="15" Text="{Binding Path=fechaNac, Mode=TwoWay, UpdateSourceTrigger=Explicit}">
+            </TextBox>
+            <TextBox Grid.Column="1" Grid.Row="3" x:Name="txtTelefono" Margin="15" Text="{Binding Path=telefono, Mode=TwoWay, UpdateSourceTrigger=Explicit}"></TextBox>
             <ScrollViewer Grid.Column="1" Grid.Row="5" Grid.RowSpan="3" Margin="15" >
                 <TextBox  x:Name="txtDireccion" Margin="5" TextWrapping="Wrap" Text="{Binding Path=direccion, Mode=TwoWay, UpdateSourceTrigger=Explicit}" ></TextBox>
             </ScrollViewer>
@@ -154,3 +161,4 @@
     
     
 </Page>
+

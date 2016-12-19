@@ -10,7 +10,7 @@ namespace _Binding2.Models
 {
     public class clsListado
     {
-        private ObservableCollection<clsPersona> _list;
+        //private ObservableCollection<clsPersona> _list;
         private Uri uri = new Uri( "http://webapirestdanileal.azurewebsites.net/api/personas");
 
         public clsListado()
@@ -29,8 +29,11 @@ namespace _Binding2.Models
 
 
 
-
-        public async Task<ObservableCollection<clsPersona>> getPersonas()
+        /// <summary>
+        ///  Metodo que recoge todas las personas, con o sin parametros de busqueda
+        /// </summary>
+        /// <returns></returns>
+        public async Task<ObservableCollection<clsPersona>> getPersonas(String textoaBuscar=null)
         {
             ObservableCollection<clsPersona> lista = new ObservableCollection<clsPersona>();
             HttpBaseProtocolFilter filtro = new HttpBaseProtocolFilter();
@@ -43,6 +46,13 @@ namespace _Binding2.Models
                 string respuesta = await mihttpClient.GetStringAsync(uri);
                 mihttpClient.Dispose();
                 lista=JsonConvert.DeserializeObject<ObservableCollection<clsPersona>>(respuesta);
+
+                if (!String.IsNullOrEmpty(textoaBuscar))
+                {
+                    var query = from p in lista where p.nombre.Contains(textoaBuscar) || p.apellido.Contains(textoaBuscar) select p;
+                    lista = new ObservableCollection<clsPersona>(query);
+
+                }
             }
             catch (Exception)
             {
@@ -51,5 +61,8 @@ namespace _Binding2.Models
 
             return lista;
         }
+
+       
+
     }
 }

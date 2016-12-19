@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,7 +16,7 @@ namespace _Binding2.Models
         //propiedades y Getters/Setters
         private String _nombre { get; set; }
         private String _apellido { get; set; }
-        private DateTime? _fechaNac { get; set; }
+        private DateTime? _fechaNac;
         private String _telefono { get; set; }
         private String _direccion;
         public int id { get; set; }
@@ -25,7 +26,7 @@ namespace _Binding2.Models
         //constructores
         public clsPersona(String nombre, String apellido, DateTime fechaNac, String telefono, String direccion)
         {
-
+ 
             this._nombre = nombre;
             this._apellido = apellido;
             this._fechaNac = fechaNac;
@@ -36,12 +37,15 @@ namespace _Binding2.Models
 
         public clsPersona()
         {
+            this.id = -1;
             this._nombre = null;
             this._apellido = null;
-            this._fechaNac = null;
+            this._fechaNac = new DateTime();
             this._telefono = null;
             this._direccion = null; 
         }
+
+
 
         public String nombre
         {
@@ -69,8 +73,9 @@ namespace _Binding2.Models
             }
         }
 
-        
-        public DateTime? fechaNac
+
+
+        public object fechaNac
         {
             get
             {
@@ -78,7 +83,21 @@ namespace _Binding2.Models
             }
             set
             {
-                this._fechaNac = value;
+                //Aqui teniamos un prblema porque nuestra propiedad es un DATETIME, pero el set que recibe es una cadena asi que hay que convertirla, pero se le suma otro problema
+                //que las fechas que recibimos de la bbdd son typo DATETIME, entonces tenemos que buscar una solucion como esta:
+                if (value.GetType() == typeof(string))
+                {
+
+                    this._fechaNac = Convert.ToDateTime((String)value);
+                }
+
+                else
+                {
+                    this._fechaNac = (DateTime)value;
+                }
+                
+
+
                 OnPropertyChanged("fechaNac");
             }
         }
