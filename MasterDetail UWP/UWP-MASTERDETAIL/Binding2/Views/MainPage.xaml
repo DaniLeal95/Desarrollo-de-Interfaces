@@ -10,6 +10,7 @@
     mc:Ignorable="d">
     
     <Page.DataContext>
+        
         <vm:clsMainPageVM />
     </Page.DataContext>
     
@@ -19,25 +20,18 @@
         <!-- ADAPTATIVE TRIGGER-->
 
         
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="VisualStateGroup">
+        <VisualStateManager.VisualStateGroups >
+            <VisualStateGroup x:Name="VisualStateGroup" CurrentStateChanged="VisualStateGroup_CurrentStateChanged">
 
                 <!-- ADAPTATIVE TRIGGER Pantalla Grande-->
                 <VisualState x:Name="pantallaGrande">
+                    
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="550" />
+
+                        <AdaptiveTrigger MinWindowWidth="720" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <!--<Setter Target="Detail.(Grid.Row)"
-                            Value="1" />
-                        <Setter Target="Detail.(Grid.Column)"
-                            Value="0" />
-                        <Setter Target="list.(Grid.Row)"
-                            Value="0"/>
-                        <Setter Target="list.(Grid.Column)"
-                            Value="0"/>
-                        <Setter Target="Columna1.Height" Value="AUTO"></Setter>
-                        <Setter Target="Fila1.Width" Value="*"></Setter>-->
+                       
                     </VisualState.Setters>
                 </VisualState>
 
@@ -46,19 +40,19 @@
                 <VisualState x:Name="pantallaPequenia">
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="0" />
+                        
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
 
-                        <Setter Target="Details.(Grid.Row)"
-                            Value="1" />
-                        <Setter Target="Details.(Grid.Column)"
-                            Value="0" />
+                        <Setter Target="Columna1.Width" Value="0"></Setter>
+                        <Setter Target="Save.Visibility" Value="Collapsed"></Setter>
+                        <Setter Target="Delete.Visibility" Value="Collapsed"></Setter>
                         <Setter Target="list.(Grid.Row)"
                             Value="0"/>
                         <Setter Target="list.(Grid.Column)"
                             Value="0"/>
 
-                        <Setter Target="Columna1.Width" Value="AUTO"></Setter>
+                        
                         <Setter Target="Fila1.Height" Value="*"></Setter>
                     </VisualState.Setters>
                 </VisualState>
@@ -85,8 +79,8 @@
         <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" Grid.Row="0" Grid.Column="0">
 
             <AppBarButton  Grid.Row="0" Background="LightBlue" Icon="Add" Click="AppBarButton_Click" Label="Add" Command="{Binding addCommand}"></AppBarButton>
-            <AppBarButton  Grid.Row="0" Background="LightBlue" Icon="Save" Click="AppBarButton_Click" Label="Save" Command="{Binding guardarCommand}"></AppBarButton>
-            <AppBarButton  Grid.Row="0"  Background="LightBlue" Name="borrarCommand"  Icon="Delete"  Command="{Binding EliminarCommand}" Label="Delete"></AppBarButton>
+            <AppBarButton x:Name="Save"  Grid.Row="0" Background="LightBlue" Icon="Save" Click="AppBarButton_Click" Label="Save" Command="{Binding guardarCommand}"></AppBarButton>
+            <AppBarButton x:Name="Delete" Grid.Row="0"  Background="LightBlue" Icon="Delete"  Command="{Binding EliminarCommand}" Label="Delete"></AppBarButton>
 
 
             <StackPanel Orientation="Horizontal"  Background="LightBlue">
@@ -101,11 +95,11 @@
                 <RowDefinition Height="AUTO"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
-            <ProgressRing Grid.Row="1" IsActive="{Binding progessring}"></ProgressRing>
-            <ScrollViewer  Name="list" Grid.Row="1">
-               
-                <ListView x:Name="lista" ItemsSource="{Binding lista}" SelectedItem="{Binding personaSeleccionada, Mode=TwoWay}" RightTapped="lista_RightTapped" >
-                
+
+            <ProgressRing IsActive="{Binding progessring}" Grid.Row="1" />
+            <ScrollViewer  Name="list" Grid.Row="1" >
+                <ListView x:Name="lista"  ItemsSource="{Binding lista}" SelectedItem="{Binding personaSeleccionada, Mode=TwoWay}" IsItemClickEnabled="True" ItemClick="lista_ItemClick">
+                    
                     <!--TEMPLATE OF LIST-->
                     <ListView.ItemTemplate>
                         <DataTemplate>

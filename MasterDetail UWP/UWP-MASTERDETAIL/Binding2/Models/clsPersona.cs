@@ -87,31 +87,8 @@ namespace _Binding2.Models
                 //que las fechas que recibimos de la bbdd son typo DATETIME, entonces tenemos que buscar una solucion como esta:
                 if (value.GetType() == typeof(string))
                 {
-                    #region prueba fallida
-                    //int anio, mes, dia, horas, minutos, segundos;
-                    //string[] tiempo = ((string)value).Split(' ');
 
-                    ////Dividimos por dias/mes/años
-                    //string[] datediv = tiempo[0].Split('/');
-                    //dia= int.Parse(datediv[0]);
-                    //mes = int.Parse(datediv[1]);
-                    //anio = int.Parse(datediv[2]);
-
-                    ////Dividimos por horas/minutos/segundos
-                    //string[] horasdiv = tiempo[1].Split(':');
-                    //horas = int.Parse(horasdiv[0]);
-                    //minutos = int.Parse(horasdiv[1]);
-                    //segundos = int.Parse(horasdiv[2]);
-
-                    //this._fechaNac = new DateTime(anio, mes, dia, horas, minutos, segundos);
-                    #endregion
-
-
-                    //No me coje las horas/minutos/segundos
                     this._fechaNac = Convert.ToDateTime((String)value);
-
-                    //Me da error si inserta horas/minutos/segundos 
-                    //this._fechaNac = DateTime.ParseExact((String)value, "dd/MM/yyyy hh:mm:ss", CultureInfo.InvariantCulture);
                 }
 
                 else

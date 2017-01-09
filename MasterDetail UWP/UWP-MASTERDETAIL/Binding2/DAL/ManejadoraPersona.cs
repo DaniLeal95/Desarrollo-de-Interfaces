@@ -47,7 +47,7 @@ namespace Binding2.DAL
             try
             {
                 string jsonconvertido=JsonConvert.SerializeObject(persona);
-                HttpStringContent contentPost = new HttpStringContent(jsonconvertido,Windows.Storage.Streams.UnicodeEncoding.Utf8,"application/json");
+                IHttpContent contentPost = new HttpStringContent(jsonconvertido,Windows.Storage.Streams.UnicodeEncoding.Utf8,"application/json");
                 await mihttpClient.PostAsync(url, contentPost);
                
 

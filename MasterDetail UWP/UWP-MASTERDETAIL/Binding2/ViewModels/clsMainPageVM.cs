@@ -13,12 +13,12 @@ using Windows.Web.Http;
 using Binding2.DAL;
 
 using System.Globalization;
+using Windows.UI.ViewManagement;
 
 namespace Binding2.ViewModels
 {
     public class clsMainPageVM : clsVMBase 
     {
-
         private bool _progressring;
         private clsPersona _personaSeleccionada;
         private ObservableCollection<clsPersona> _lista;
@@ -31,14 +31,13 @@ namespace Binding2.ViewModels
 
         public clsMainPageVM()
         {
-            _progressring = true;
-            NotifyPropertyChanged("progessring");
+            progessring = true;
             //Llamamos a un metodo asíncrono
             rellenaLista();
-            
             _eliminarCommand = new DelegateCommand(EliminarCommand_Executed, EliminarCommand_CanExecuted);
             _guardarCommand = new DelegateCommand(GuardarCommand_Executed, GuardarCommand_CanExecuted);
             _addCommand = new DelegateCommand(addCommand_Executed);
+            
         }
 
         #region getters&setters
@@ -55,7 +54,6 @@ namespace Binding2.ViewModels
             }
         }
 
-
         public clsPersona  personaSeleccionada
         {
             get
@@ -70,6 +68,9 @@ namespace Binding2.ViewModels
                 _guardarCommand.RaiseCanExecuteChanged();
                 _addCommand.RaiseCanExecuteChanged();
                 NotifyPropertyChanged("personaSeleccionada");
+
+
+         
 
             }
         }
@@ -126,7 +127,6 @@ namespace Binding2.ViewModels
             }
         }
         #endregion
-
         #region funciones
 
         /// <summary>
@@ -169,11 +169,20 @@ namespace Binding2.ViewModels
 
                 }
 
-              
-                    await Task.Delay(1000);
+                try
+                {
+                    
                     personaSeleccionada = null;
                     this.rellenaLista();
-              
+                    if (Window.Current.Bounds.Width <= 720)
+                    {
+                        ((Frame)Window.Current.Content).GoBack();
+                    }
+                }
+                catch (Exception)
+                {
+
+                }
             }
 
         }
@@ -199,11 +208,15 @@ namespace Binding2.ViewModels
                 //si no una actualizacion
                 mp.UpdatePerson(personaSeleccionada);
             }
-            await Task.Delay(1000);
+           
             personaSeleccionada = null;
 
-            rellenaLista();
-
+            lista = await new clsListado().getPersonas();
+            NotifyPropertyChanged("lista");
+            if (Window.Current.Bounds.Width <= 720)
+            {
+                ((Frame)Window.Current.Content).GoBack();
+            }
         }
 
         private void addCommand_Executed()
@@ -215,7 +228,6 @@ namespace Binding2.ViewModels
 
         private async void rellenaLista()
         {
-            //await Task.Delay(1000);
             clsListado olistados = new clsListado();
             progessring = true;
             NotifyPropertyChanged("progessring");
@@ -230,11 +242,7 @@ namespace Binding2.ViewModels
             try
             {
                 clsListado olistados = new clsListado();
-                progessring = true;
-                NotifyPropertyChanged("progessring");
                 lista = await olistados.getPersonas(textoaBuscar);
-                progessring = false;
-                NotifyPropertyChanged("progessring");
                 NotifyPropertyChanged("lista");
             }
             catch(Exception)
