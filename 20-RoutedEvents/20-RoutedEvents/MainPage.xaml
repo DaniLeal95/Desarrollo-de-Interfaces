@@ -9,7 +9,7 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-        <StackPanel >
+        <StackPanel PointerPressed="StackPanel_PointerPressed">
             <TextBlock Text="Bubbling"></TextBlock>
             <Rectangle Height="50" Fill="Red" Margin="20" PointerPressed="Rectangle_PointerPressed"></Rectangle>
             <Rectangle Height="50" Fill="Blue" Margin="20" PointerPressed="Rectangle_PointerPressed"></Rectangle>
