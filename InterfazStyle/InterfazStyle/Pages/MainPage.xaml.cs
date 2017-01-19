@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InterfazStyle.Pages;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,6 +12,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
 // La plantilla de elemento Página en blanco está documentada en http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
@@ -25,6 +27,11 @@ namespace InterfazStyle
         public MainPage()
         {
             this.InitializeComponent();
+        }
+
+        private void iniciar_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(PanelConfiguracion), null, new EntranceNavigationTransitionInfo());
         }
     }
 }
