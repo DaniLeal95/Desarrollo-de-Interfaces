@@ -9,7 +9,7 @@
 
     <RelativePanel Background="LightBlue">
 
-        <Image Source="Assets/logo.png" x:Name="image"  Style="{StaticResource Image}"/>
+        <Image Source="../Assets/logo.png" x:Name="image" Style="{StaticResource Image}"></Image>
         <TextBox x:Name="User" PlaceholderText="Usuario..." Style="{StaticResource textPrincipal}" RelativePanel.Below="image"></TextBox>
         <TextBox x:Name="Passw" PlaceholderText="Contraseña..." Style="{StaticResource textPrincipal}" RelativePanel.Below="User"></TextBox>
         <Button x:Name="iniciar" RelativePanel.Below="Passw" RelativePanel.AlignHorizontalCenterWithPanel="True" Content="Iniciar Sesion" Click="iniciar_Click"></Button>
