@@ -7,6 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace Examen1Evaluacion
 {
@@ -88,9 +92,6 @@ namespace Examen1Evaluacion
                     this._cartaSeleccionada = value;
                     if (_cartaSeleccionada.uri == uridefault)
                     {
-
-
-
                         _cartaSeleccionada.uri = this.cambiaFoto(cartaSeleccionada.nombre);
 
 
@@ -268,3 +269,5 @@ namespace Examen1Evaluacion
         #endregion
     }
 }
+
+

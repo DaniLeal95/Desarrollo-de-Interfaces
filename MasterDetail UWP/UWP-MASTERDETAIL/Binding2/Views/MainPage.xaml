@@ -8,12 +8,14 @@
     xmlns:vm="using:Binding2.ViewModels"
     
     mc:Ignorable="d">
-    
     <Page.DataContext>
         
         <vm:clsMainPageVM />
     </Page.DataContext>
-    
+
+
+
+
 
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Name="Total">
@@ -130,7 +132,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
                <!--Primera Columna-->
-            <TextBlock Grid.Column="0" Grid.Row="0" Text="Nombre:" FontSize="20" Margin="15"/>
+            <TextBlock Grid.Column="0" Grid.Row="0" FontSize="20" Margin="15" x:Name="lblNombre" Text="Nombre: "/>
             <TextBlock Grid.Column="0" Grid.Row="1" Text="Apellidos:" FontSize="20" Margin="15"/>
             <TextBlock Grid.Column="0" Grid.Row="2" Text="Fecha de Nacimiento:" FontSize="20" Margin="15" TextWrapping="Wrap"/>
             <TextBlock Grid.Column="0" Grid.Row="3" Text="Teléfono:" FontSize="20" Margin="15"/>

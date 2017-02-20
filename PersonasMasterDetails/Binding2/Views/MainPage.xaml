@@ -17,6 +17,19 @@
 
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Name="Total">
+        <Grid.Resources>
+            <Style x:Key="styleBlock" TargetType="TextBlock">
+                <Setter Property="Transitions">
+                    <Setter.Value>
+                        <TransitionCollection>
+                            <ContentThemeTransition HorizontalOffset="-300" VerticalOffset="-200" ></ContentThemeTransition>
+                        </TransitionCollection>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </Grid.Resources>
+
+
         <!-- ADAPTATIVE TRIGGER-->
 
         
@@ -78,6 +91,7 @@
 
         <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" Grid.Row="0" Grid.Column="0">
 
+
             <AppBarButton  Grid.Row="0" Background="LightBlue" Icon="Add" Click="AppBarButton_Click" Label="Add" Command="{Binding addCommand}"></AppBarButton>
             <AppBarButton x:Name="Save"  Grid.Row="0" Background="LightBlue" Icon="Save" Click="AppBarButton_Click" Label="Save" Command="{Binding guardarCommand}"></AppBarButton>
             <AppBarButton x:Name="Delete" Grid.Row="0"  Background="LightBlue" Icon="Delete"  Command="{Binding EliminarCommand}" Label="Delete"></AppBarButton>
@@ -98,7 +112,13 @@
 
             <ScrollViewer  Name="list" Grid.Row="1" >
                 <ListView x:Name="lista"  ItemsSource="{Binding lista}" SelectedItem="{Binding personaSeleccionada, Mode=TwoWay}" IsItemClickEnabled="True" ItemClick="lista_ItemClick">
-                    
+                    <ListView.ItemContainerTransitions>
+                        <TransitionCollection>
+                            <ContentThemeTransition HorizontalOffset="0" VerticalOffset="-9000"></ContentThemeTransition>
+                            <AddDeleteThemeTransition/>
+                        </TransitionCollection>
+                        
+                    </ListView.ItemContainerTransitions>
                     <!--TEMPLATE OF LIST-->
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -129,11 +149,11 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
                <!--Primera Columna-->
-            <TextBlock Grid.Column="0" Grid.Row="0" Text="Nombre:" FontSize="20" Margin="15"/>
-            <TextBlock Grid.Column="0" Grid.Row="1" Text="Apellidos:" FontSize="20" Margin="15"/>
-            <TextBlock Grid.Column="0" Grid.Row="2" Text="Fecha de Nacimiento:" FontSize="20" Margin="15" TextWrapping="Wrap"/>
-            <TextBlock Grid.Column="0" Grid.Row="3" Text="Teléfono:" FontSize="20" Margin="15"/>
-            <TextBlock Grid.Column="0" Grid.Row="4" Text="Dirección:" FontSize="20" Margin="15"/>
+            <TextBlock Style="{StaticResource styleBlock}" Grid.Column="0" Grid.Row="0" Text="Nombre:" FontSize="20" Margin="15"/>
+            <TextBlock Style="{StaticResource styleBlock}" Grid.Column="0" Grid.Row="1" Text="Apellidos:" FontSize="20" Margin="15"/>
+            <TextBlock Style="{StaticResource styleBlock}" Grid.Column="0" Grid.Row="2" Text="Fecha de Nacimiento:" FontSize="20" Margin="15" TextWrapping="Wrap"/>
+            <TextBlock Style="{StaticResource styleBlock}" Grid.Column="0" Grid.Row="3" Text="Teléfono:" FontSize="20" Margin="15"/>
+            <TextBlock Style="{StaticResource styleBlock}" Grid.Column="0" Grid.Row="4" Text="Dirección:" FontSize="20" Margin="15"/>
             
             <!--Segunda Columna-->
             <TextBox Grid.Column="1" Grid.Row="0" x:Name="txtNombre" Text="{Binding Path=nombre, Mode=TwoWay, UpdateSourceTrigger=Explicit}" Margin="15"> </TextBox>

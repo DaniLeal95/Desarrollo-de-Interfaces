@@ -29,10 +29,17 @@
         </RelativePanel>
 
 
-        <GridView Grid.Row="1" ItemsSource="{Binding lista,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding clickeable,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=cartaSeleccionada, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
+        <GridView Grid.Row="1" ItemsSource="{Binding lista,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding clickeble,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=cartaSeleccionada, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
             <GridView.ItemTemplate>
                 <DataTemplate>
-                    <Image Source="{Binding uri}" MaxWidth="450" MaxHeight="200"/>
+
+                    <Image Name="Foto" Source="{Binding uri}" MaxWidth="450" MaxHeight="200" PointerPressed="Image_PointerPressed">
+                        <Image.Projection>
+                            <PlaneProjection></PlaneProjection>
+                        </Image.Projection>
+                        
+                    </Image>
+
                 </DataTemplate>
 
             </GridView.ItemTemplate>

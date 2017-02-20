@@ -30,7 +30,19 @@ namespace Binding2
         {
             this.InitializeComponent();
             this.ViewModel = (ViewModels.clsMainPageVM) this.DataContext;
+
            
+
+            //for (int i = 0; i < Resources.Count; i++)
+            //{
+            //    if (Resources.ElementAt(i).Key.Equals("Nombre"))
+            //    {
+            //        lblNombre.Text = (String)Resources.ElementAt(0).Value;
+            //    }
+            //}
+
+            
+
         }
 
         public ViewModels.clsMainPageVM ViewModel { get; }

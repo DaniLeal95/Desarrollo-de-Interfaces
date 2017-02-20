@@ -20,6 +20,7 @@
             </CommandBar.SecondaryCommands>
         </CommandBar>
 
+
         <Pivot Grid.Row="1" >
             <!--Section for favs-->
             <PivotItem  x:Name="favoritos" Header="Favoritos" >
@@ -29,27 +30,27 @@
                     <ListBox Background="TEAL">
 
                         <ListBoxItem HorizontalAlignment="Center"  >
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="·Luz Salon" Margin="20,20,20,0" Foreground="White"></TextBlock>
-                                <TextBlock Text="→"  Foreground="White" Margin="59,20,20,0"></TextBlock>
-                                <Slider   Background="White" Margin="20" Minimum="0" Maximum="100" TickFrequency="10" SnapsTo="StepValues" TickPlacement="BottomRight" MinWidth="250" />
-                            </StackPanel>
+                            <RelativePanel>
+                                <TextBlock Name="lblluzsalon" Text="·Luz Salon" Margin="20,20,20,0" Foreground="White"></TextBlock>
+                                <TextBlock Text="→"  Foreground="White" Margin="59,20,20,0" RelativePanel.AlignRightWith="lblluzsalon"></TextBlock>
+                                <Slider Name="luzsalon" RelativePanel.Below="lblluzsalon" Background="White" Margin="20" Minimum="0" Maximum="100" TickFrequency="10" SnapsTo="StepValues" TickPlacement="BottomRight" MinWidth="250" />
+                            </RelativePanel>
                         </ListBoxItem>
                         
                         <ListBoxItem HorizontalAlignment="Center" >
-                                    <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="·Luz Patio" Margin="20"  Foreground="White"></TextBlock>
-                                    <TextBlock Text="→" Margin="60,20,20,20"  Foreground="White"></TextBlock>
-                                    <Slider  Background="White" Margin="20" Minimum="0" Maximum="100" TickFrequency="10" SnapsTo="StepValues" TickPlacement="BottomRight" MinWidth="250" />
-                                </StackPanel>
+                                    <RelativePanel>
+                                        <TextBlock Name="lblluzpatio" Text="·Luz Patio" Margin="20"  Foreground="White"></TextBlock>
+                                        <TextBlock Text="→" Margin="60,20,20,20"  Foreground="White" RelativePanel.RightOf="lblluzpatio"></TextBlock>
+                                        <Slider Name="luzpatio" RelativePanel.Below="lblluzpatio" Background="White" Margin="20" Minimum="0" Maximum="100" TickFrequency="10" SnapsTo="StepValues" TickPlacement="BottomRight" MinWidth="250" />
+                                </RelativePanel>
                         </ListBoxItem>
                         
                         <ListBoxItem HorizontalAlignment="Center" >
-                        <StackPanel Orientation="Horizontal" >
-                                    <TextBlock Text="·Persiana Salon" Margin="20"  Foreground="White"></TextBlock>
-                                    <TextBlock Text="→" Margin="20"  Foreground="White"></TextBlock>
-                                    <Slider  Background="White" Margin="20" Minimum="0" Maximum="100" TickFrequency="10" SnapsTo="StepValues" TickPlacement="BottomRight" MinWidth="250" />
-                                </StackPanel>
+                        <RelativePanel >
+                                    <TextBlock Name="lblpersianasalon" Text="·Persiana Salon" Margin="20"  Foreground="White"></TextBlock>
+                                    <TextBlock Text="→" Margin="20"  Foreground="White" RelativePanel.RightOf="lblpersianasalon"></TextBlock>
+                                    <Slider Name="persianasalon" RelativePanel.Below="lblpersianasalon" Background="White" Margin="20" Minimum="0" Maximum="100" TickFrequency="10" SnapsTo="StepValues" TickPlacement="BottomRight" MinWidth="250" />
+                                </RelativePanel>
                         </ListBoxItem>
                 
                 
@@ -93,6 +94,7 @@
                 <TextBlock Style="{StaticResource tituloPivot}" Text="Cámaras"/>
             </PivotItem>
         </Pivot>
+
 
     </Grid>
 </Page>
