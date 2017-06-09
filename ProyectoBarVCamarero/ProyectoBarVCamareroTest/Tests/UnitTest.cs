@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using ProyectoBarVCamarero.dal;
 using ProyectoBarVCamarero.models;
 using System.Collections.ObjectModel;
-using Windows.Web.Http;
+using System.Net.Http;
 
 namespace ProyectoBarVCamareroTest
 {
@@ -23,20 +23,28 @@ namespace ProyectoBarVCamareroTest
         public async Task editProduct()
         {
             ProductoController pc = new ProductoController();
-            Producto p = new Producto(2, "Agua Mineral", 0.8, 1);
+            Producto p = new Producto(2, "Aguaaaaa Mineral",0.8, 2,1);
 
-            HttpResponseMessage res = await pc.editProduct(p);
-            Assert.IsTrue(res.IsSuccessStatusCode);
+            
+            Assert.IsTrue(await pc.editProduct(p));
         }
 
         [TestMethod]
         public async Task postProduct()
         {
             ProductoController pc = new ProductoController();
-            Producto p = new Producto(0, "TestProduct", 0.1, 4);
+            Producto p = new Producto(0, "PruebaUnitaria", 0.1, 4,1);
 
-            HttpResponseMessage res = await pc.addProducto(p);
-            Assert.IsTrue(res.IsSuccessStatusCode);
+            
+            Assert.IsTrue(await pc.addProducto(p));
+        }
+
+        [TestMethod]
+        public async Task DeleteProduct()
+        {
+            ProductoController pc = new ProductoController();
+            bool res = await pc.deleteProduct(29);
+            Assert.IsTrue(res);
         }
     }
 }

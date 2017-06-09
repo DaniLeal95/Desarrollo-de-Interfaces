@@ -1,7 +1,9 @@
 ﻿using Newtonsoft.Json;
 using ProyectoBarVCamarero.models;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -9,12 +11,11 @@ using System.Threading.Tasks;
 
 namespace ProyectoBarVCamarero.dal
 {
-    public class ProductoController
+    public class MesaController
     {
-        
 
         #region Builder
-        public ProductoController()
+        public MesaController()
         {
 
         }
@@ -22,17 +23,15 @@ namespace ProyectoBarVCamarero.dal
 
 
         #region Functions
-
-
         /// <summary>
-        ///  Metodo que recoge todos los productos
+        /// Metodo que recoge todas las mesas
         /// </summary>
         /// <returns></returns>
-        public async Task<ObservableCollection<Producto>> getProductos()
+        public async Task<ObservableCollection<Mesa>> getMesas()
         {
-            String url = "http://dleal.ciclo.iesnervion.es/Producto";
+            String url = "http://dleal.ciclo.iesnervion.es/Mesa";
             Uri uri = new Uri(url);
-            ObservableCollection<Producto> lista = new ObservableCollection<Producto>();
+            ObservableCollection<Mesa> lista = new ObservableCollection<Mesa>();
 
 
             HttpClient httpClient = new HttpClient();
@@ -42,37 +41,29 @@ namespace ProyectoBarVCamarero.dal
                                      System.Text.ASCIIEncoding.ASCII.GetBytes(
                                          string.Format("{0}:{1}", "admin", "admin"))));
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            
 
 
-            try
-            {
+
+           
                 string respuesta = await httpClient.GetStringAsync(uri);
                 httpClient.Dispose();
-                lista = JsonConvert.DeserializeObject<ObservableCollection<Producto>>(respuesta);
+                lista = JsonConvert.DeserializeObject<ObservableCollection<Mesa>>(respuesta);
 
-                
-            }
-            catch (Exception)
-            {
 
-            }
+            
 
             return lista;
         }
-        
-
 
         /// <summary>
-        ///  Metodo que edita un producto 
+        ///  Metodo que edita una mesa 
         /// </summary>
         /// <returns></returns>
-        public async Task<bool> editProduct(Producto p)
+        public async Task<HttpResponseMessage> editMesa(Mesa m)
         {
-            bool correcto = false;
-            String url = "http://dleal.ciclo.iesnervion.es/Producto/"+p.idproducto;
+            String url = "http://dleal.ciclo.iesnervion.es/Mesa/" + m.Nummesa;
             Uri uri = new Uri(url);
-            string postBody = JsonConvert.SerializeObject(p);
+            string postBody = JsonConvert.SerializeObject(m);
             HttpClient httpClient = new HttpClient();
 
             httpClient.DefaultRequestHeaders.Authorization =
@@ -81,55 +72,58 @@ namespace ProyectoBarVCamarero.dal
                                                 System.Text.ASCIIEncoding.ASCII.GetBytes(
                                                     string.Format("{0}:{1}", "admin", "admin"))));
 
-            
-            
+
+
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            
-            HttpResponseMessage res = await httpClient.PutAsync(uri,new StringContent(postBody));
+
+            HttpResponseMessage res = await httpClient.PutAsync(uri, new StringContent(postBody));
             String resultado = await res.Content.ReadAsStringAsync();
-            if (res.IsSuccessStatusCode)
-                correcto = true;
-            
-            return correcto;
+            return res;
 
         }
 
+
         /// <summary>
-        ///  Metodo que añade un producto 
+        ///  Metodo que añade una mesa 
         /// </summary>
         /// <returns></returns>
-        public async Task<bool> addProducto(Producto p)
+        public async Task<bool> postMesa(Mesa m)
         {
-            bool correcto = false;
-            HttpResponseMessage res;
-               String url = "http://dleal.ciclo.iesnervion.es/Producto";
+            bool añadido = false;
+            String url = "http://dleal.ciclo.iesnervion.es/Mesa";
             Uri uri = new Uri(url);
-            string postBody = JsonConvert.SerializeObject(p);
+            string postBody = JsonConvert.SerializeObject(m);
             HttpClient httpClient = new HttpClient();
-            httpClient.DefaultRequestHeaders.Authorization = 
-                 new AuthenticationHeaderValue("Basic", 
+
+            httpClient.DefaultRequestHeaders.Authorization =
+                 new AuthenticationHeaderValue("Basic",
                                                Convert.ToBase64String(
                                                 System.Text.ASCIIEncoding.ASCII.GetBytes(
                                                     string.Format("{0}:{1}", "admin", "admin"))));
 
+
+
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            res = await httpClient.PostAsync(uri, new StringContent(postBody));
+
+            HttpResponseMessage res = await httpClient.PostAsync(uri, new StringContent(postBody));
             String resultado = await res.Content.ReadAsStringAsync();
-            if (res.IsSuccessStatusCode)
-                correcto = true;
-            return correcto;
+            if (res.IsSuccessStatusCode) añadido = true;
+            return añadido;
 
         }
+
+
+
         /// <summary>
-        /// Metodo que elimina un producto
+        /// Metodo que elimina una mesa
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<bool> deleteProduct(int id)
+        public async Task<bool> deleteMesa(int id)
         {
-            bool borradocorrecto = false;
+            bool eliminado = false;
             HttpResponseMessage res;
-            String url = "http://dleal.ciclo.iesnervion.es/Producto/"+id;
+            String url = "http://dleal.ciclo.iesnervion.es/Mesa/" + id;
             Uri uri = new Uri(url);
 
             HttpClient httpClient = new HttpClient();
@@ -141,10 +135,9 @@ namespace ProyectoBarVCamarero.dal
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             res = await httpClient.DeleteAsync(uri);
             String resultado = await res.Content.ReadAsStringAsync();
-            if (res.IsSuccessStatusCode) borradocorrecto = true;
-            return borradocorrecto;
+            if (res.IsSuccessStatusCode) eliminado = true;
+            return eliminado;
         }
-
         #endregion
     }
 }

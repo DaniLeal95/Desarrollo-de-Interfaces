@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProyectoBarVCamarero.viewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ProyectoBarVCamarero.models
 {
-    public class Producto
+    public class Producto : clsVMBase
     {
         #region Properties
         
@@ -17,6 +18,8 @@ namespace ProyectoBarVCamarero.models
         private double _precio;
         
         private int _idcategoria;
+
+        private int _operativo;
         #endregion
         #region Builders
         public Producto()
@@ -24,19 +27,20 @@ namespace ProyectoBarVCamarero.models
 
         }
 
-        public Producto(int _id, string _nombre, double _precio, int _idcategoria)
+        public Producto(int _id, string _nombre, double _precio, int _idcategoria, int operativo)
         {
             this._id = _id;
             this._nombre = _nombre;
             this._precio = _precio;
             this._idcategoria = _idcategoria;
+            this._operativo = operativo;
         }
 
 
 
         #endregion
         #region Getters&Setters
-        public int Id
+        public int idproducto
         {
             get
             {
@@ -46,10 +50,11 @@ namespace ProyectoBarVCamarero.models
             set
             {
                 _id = value;
+                NotifyPropertyChanged("Idproducto");
             }
         }
 
-        public string Nombre
+        public string nombre
         {
             get
             {
@@ -59,10 +64,11 @@ namespace ProyectoBarVCamarero.models
             set
             {
                 _nombre = value;
+                NotifyPropertyChanged("Nombre");
             }
         }
 
-        public double Precio
+        public double precio
         {
             get
             {
@@ -72,10 +78,11 @@ namespace ProyectoBarVCamarero.models
             set
             {
                 _precio = value;
+                NotifyPropertyChanged("Precio");
             }
         }
 
-        public int Idcategoria
+        public int idcategoria
         {
             get
             {
@@ -85,9 +92,23 @@ namespace ProyectoBarVCamarero.models
             set
             {
                 _idcategoria = value;
+                NotifyPropertyChanged("Idcategoria");
             }
         }
 
+        public int operativo
+        {
+            get
+            {
+                return _operativo;
+            }
+
+            set
+            {
+                _operativo = value;
+                NotifyPropertyChanged("Operativo");
+            }
+        }
         #endregion
 
     }

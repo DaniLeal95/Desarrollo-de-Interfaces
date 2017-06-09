@@ -89,14 +89,31 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <None Include="Diagrama.cd" />
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="bl\CategoriaBL.cs" />
+    <Compile Include="bl\CuentaBL.cs" />
+    <Compile Include="bl\ListadosBL.cs" />
+    <Compile Include="bl\MesaBL.cs" />
+    <Compile Include="bl\NuevaComandaBL.cs" />
+    <Compile Include="bl\ProductoBL.cs" />
+    <Compile Include="dal\CategoriaController.cs" />
+    <Compile Include="dal\CuentaController.cs" />
+    <Compile Include="dal\DetallesCuentaController.cs" />
+    <Compile Include="dal\MesaController.cs" />
+    <Compile Include="dal\NuevaComandaController.cs" />
     <Compile Include="dal\ProductoController.cs" />
-    <Compile Include="MainPage.xaml.cs">
+    <Compile Include="models\Categoria.cs" />
+    <Compile Include="models\NuevasComandas.cs" />
+    <Compile Include="views\CuentaNoFinalizada.xaml.cs">
+      <DependentUpon>CuentaNoFinalizada.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="models\Cuenta.cs" />
@@ -107,6 +124,9 @@
     <Compile Include="viewModel\clsMainPageVM.cs" />
     <Compile Include="viewModel\clsVMBase.cs" />
     <Compile Include="viewModel\DelegateCommand.cs" />
+    <Compile Include="views\TablePage.xaml.cs">
+      <DependentUpon>TablePage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -115,6 +135,10 @@
     <None Include="ProyectoBarVCamarero_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\mesaimg.png" />
+    <Content Include="Assets\Square150x150Logo.scale-100.jpg" />
+    <Content Include="Assets\Square150x150Logo.scale-200.jpg" />
+    <Content Include="Assets\Square150x150Logo.scale-400.jpg" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -129,15 +153,26 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainPage.xaml">
+    <Page Include="views\CuentaNoFinalizada.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="views\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\TablePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
     <SDKReference Include="BehaviorsXamlSDKManaged, Version=12.0">
       <Name>Behaviors SDK %28XAML%29</Name>
     </SDKReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Diccionario\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProyectoBarVCamarero.viewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,15 +7,17 @@ using System.Threading.Tasks;
 
 namespace ProyectoBarVCamarero.models
 {
-    public class Cuenta
+    public class Cuenta:clsVMBase
     {
         #region Properties
-        private int idcuenta;
-        private int nummesa;
-        private IList<Listdetallecuenta> listdetallecuenta;
-        private string fecha;
-        private double preciofinal;
-        private int finalizada;
+        private int _idcuenta;
+        private int _nummesa;
+        private IList<Listdetallecuenta> _listdetallecuenta;
+        private string _fecha;
+        private double _preciofinal;
+        private int _finalizada;
+        public bool cuentaAbierta { get; set; }
+        public bool cuentaCerrada { get; set; }
         #endregion
         #region Builders
         public Cuenta(int idcuenta, int nummesa, IList<Listdetallecuenta> listdetallecuenta, string fecha, double preciofinal, int finalizada)
@@ -25,6 +28,19 @@ namespace ProyectoBarVCamarero.models
             this.fecha = fecha;
             this.preciofinal = preciofinal;
             this.finalizada = finalizada;
+            if (finalizada == 0)
+            {
+                cuentaAbierta = true;
+                cuentaCerrada = false;
+
+            }
+            else
+            {
+
+                cuentaAbierta = false;
+                cuentaCerrada = true;
+            }
+
         }
         public Cuenta()
         {
@@ -33,83 +49,104 @@ namespace ProyectoBarVCamarero.models
         #endregion
         #region Getters&Setters
 
-        public int Idcuenta
+        public int idcuenta
         {
             get
             {
-                return idcuenta;
+                return _idcuenta;
             }
 
             set
             {
-                idcuenta = value;
+                _idcuenta = value;
+                NotifyPropertyChanged("idcuenta");
             }
         }
 
-        public int Nummesa
+        public int nummesa
         {
             get
             {
-                return nummesa;
+                return _nummesa;
             }
 
             set
             {
-                nummesa = value;
+                _nummesa = value;
+                NotifyPropertyChanged("nummesa");
             }
         }
 
-        public IList<Listdetallecuenta> Listdetallecuenta
+        public IList<Listdetallecuenta> listdetallecuenta
         {
             get
             {
-                return listdetallecuenta;
+                return _listdetallecuenta;
             }
 
             set
             {
-                listdetallecuenta = value;
+                _listdetallecuenta = value;
+                NotifyPropertyChanged("listdetallecuenta");
             }
         }
 
-        public string Fecha
+        public string fecha
         {
             get
             {
-                return fecha;
+                return _fecha;
             }
 
             set
             {
-                fecha = value;
+                _fecha = value;
+                NotifyPropertyChanged("fecha");
             }
         }
 
-        public double Preciofinal
+        public double preciofinal
         {
             get
             {
-                return preciofinal;
+                return _preciofinal;
             }
 
             set
             {
-                preciofinal = value;
+                _preciofinal = value;
+                NotifyPropertyChanged("preciofinal");
             }
         }
 
-        public int Finalizada
+        public int finalizada
         {
             get
             {
-                return finalizada;
+                return _finalizada;
             }
 
             set
             {
-                finalizada = value;
+                _finalizada = value;
+                NotifyPropertyChanged("finalizada");
+                
+                if (value == 0)
+                {
+                    cuentaAbierta = true;
+                    cuentaCerrada = false;
+
+                }
+                else
+                {
+
+                    cuentaAbierta = false;
+                    cuentaCerrada = true;
+                }
             }
         }
+
+        
         #endregion
     }
 }

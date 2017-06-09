@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProyectoBarVCamarero.viewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ProyectoBarVCamarero.models
 {
-    public class Mesa
+    public class Mesa : clsVMBase
     {
 
         #region Properties
@@ -16,6 +17,11 @@ namespace ProyectoBarVCamarero.models
         private string _codigo;
 
         private int _disponibilidad;
+
+        private int _operativa;
+
+
+        public Uri _imagenmesa = new Uri("ms-appx://ProyectoBarVCamarero/Assets/mesaimg.png", UriKind.RelativeOrAbsolute);
         #endregion
 
         #region Builders
@@ -42,6 +48,7 @@ namespace ProyectoBarVCamarero.models
             set
             {
                 _nummesa = value;
+                NotifyPropertyChanged("Nummesa");
             }
         }
 
@@ -55,6 +62,7 @@ namespace ProyectoBarVCamarero.models
             set
             {
                 _codigo = value;
+                NotifyPropertyChanged("Codigo");
             }
         }
 
@@ -68,8 +76,32 @@ namespace ProyectoBarVCamarero.models
             set
             {
                 _disponibilidad = value;
+                NotifyPropertyChanged("Disponibilidad");
             }
-        } 
+        }
+
+        public int Operativa
+        {
+            get
+            {
+                return _operativa;
+            }
+
+            set
+            {
+                _operativa = value;
+                NotifyPropertyChanged("Operativa");
+
+            }
+        }
+
+        public Uri Imagenmesa
+        {
+            get
+            {
+                return _imagenmesa;
+            }
+        }
         #endregion
     }
 }

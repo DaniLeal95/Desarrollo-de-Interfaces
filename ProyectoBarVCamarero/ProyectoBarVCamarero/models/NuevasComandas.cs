@@ -7,9 +7,12 @@ using System.Threading.Tasks;
 
 namespace ProyectoBarVCamarero.models
 {
-   public class Listdetallecuenta:clsVMBase
+    public class NuevasComandas:clsVMBase
     {
+
+
         #region Properties
+        private int _idCuenta;
         private Producto _producto;
         private int _cantidad;
         private double _preciofinal;
@@ -17,15 +20,16 @@ namespace ProyectoBarVCamarero.models
 
         #endregion
         #region Builders
-        public Listdetallecuenta(Producto producto, int cantidad)
+        public NuevasComandas(int idcuenta,Producto producto, int cantidad,int idCuenta)
         {
             this._producto = producto;
             this._cantidad = cantidad;
             this._preciofinal = cantidad * producto.precio;
-        
+            this._idCuenta = idCuenta;
+
         }
 
-        public Listdetallecuenta()
+        public NuevasComandas()
         {
 
         }
@@ -59,6 +63,20 @@ namespace ProyectoBarVCamarero.models
 
                 precioTotal = producto.precio * cantidad;
                 NotifyPropertyChanged("cantidad");
+            }
+        }
+        public int idCuenta
+        {
+            get
+            {
+                return _idCuenta;
+            }
+
+            set
+            {
+                _idCuenta = value;
+
+                NotifyPropertyChanged("idCuenta");
             }
         }
 
